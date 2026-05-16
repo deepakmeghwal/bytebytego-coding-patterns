@@ -11,17 +11,29 @@ from pathlib import Path
 
 HTML_DIR = Path("coding-patterns")
 
-# The one CSS rule that was missing
-FIX_CSS = (
-    "<style>"
-    ".ant-tabs-tabpane-hidden{display:none!important}"
-    "</style>"
-)
+# CSS rules missing from the MHTML capture:
+#   1. Hide non-active tab panels
+#   2. Lay the tab button bar out horizontally (flex row)
+FIX_CSS = """<style>
+/* Hide non-active code tab panels */
+.ant-tabs-tabpane-hidden{display:none!important}
+
+/* Horizontal tab nav layout (Ant Design flex rules not captured in MHTML) */
+.ant-tabs-nav{display:flex;flex:none;align-items:center;position:relative}
+.ant-tabs-nav-wrap{position:relative;display:flex;flex:auto;align-self:stretch;overflow:hidden;white-space:nowrap}
+.ant-tabs-nav-list{position:relative;display:flex;flex-direction:row;transition:transform .3s}
+.ant-tabs-tab{position:relative;display:inline-flex;align-items:center;padding:8px 0;font-size:14px;background:transparent;border:0;outline:none;cursor:pointer;margin:0 32px 0 0}
+.ant-tabs-tab:last-child{margin-right:0}
+.ant-tabs-tab-btn{outline:none;transition:all .3s}
+.ant-tabs-content-holder{flex:auto;min-width:0;min-height:0}
+.ant-tabs-content{display:flex;width:100%}
+.ant-tabs-tabpane{flex:none;width:100%;outline:none}
+</style>"""
 
 def fix_file(path: Path) -> bool:
     text = path.read_text(encoding="utf-8", errors="replace")
-    # Skip files that already have the fix
-    if "ant-tabs-tabpane-hidden{display:none" in text:
+    # Skip files that already have the full fix (look for the layout rule)
+    if "flex-direction:row" in text:
         return False
     # Skip pages that have no code tabs at all
     if "ant-tabs-tabpane" not in text:
