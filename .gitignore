@@ -2,13 +2,6 @@
 .env
 session.json
 
-# Downloaded lesson pages — too large for GitHub (134MB)
-# Keep locally; only the navigator index.html is tracked
-coding-patterns/**/*.mhtml
-
-# Backup folder — duplicate of coding-patterns/
-coding-patterns-backup/
-
 # macOS
 .DS_Store
 __pycache__/
