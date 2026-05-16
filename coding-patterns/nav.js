@@ -185,6 +185,9 @@
   }
   .bbg-nav *, .bbg-nav *::before, .bbg-nav *::after { box-sizing: border-box; }
 
+  /* Hide the Ant Design ink-bar that ByteByteGo's React JS injects on click */
+  .ant-menu-ink-bar { display: none !important; }
+
   .bbg-nav-head {
     padding: 16px 16px 12px;
     border-bottom: 1px solid rgb(45,45,45);
