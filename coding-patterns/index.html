@@ -622,70 +622,91 @@
 </main>
 
 <script>
-  /* ── Password gate ────────────────────────────────────────────────────────
-     To change the password:
-       1. Pick any password string
-       2. Run in browser console: sha256("yournewpassword")
-       3. Replace CORRECT_HASH below with the result
-  ── */
-  const CORRECT_HASH = "ef92b778bafe771207b1e83de5a23a70e5e8f1af5d72dcb7b0c8c2047a71dd3b";
-  // ↑ default password: Study@2024
-  // Change it using the instructions above
-
-  const SESSION_KEY = "bbg_auth";
+  // ── Credentials (SHA-256 hashed) ─────────────────────────────────────────
+  const VALID_USER = "4f278cdddf52263fe21c64c94932f2b2ec316acecd39a7adcc01eb2e6592a678"; // ironman
+  const VALID_PASS = "8a4e8d0043cc9d3da8081d96d920dc1e278b326c99bf51d0b427d7ebbd883c79"; // Ad@#2026
+  const SESSION_KEY = "bbg_auth_v2";
+  let failCount = 0;
 
   async function sha256(str) {
-    const buf = await crypto.subtle.digest(
-      "SHA-256",
-      new TextEncoder().encode(str)
-    );
-    return Array.from(new Uint8Array(buf))
-      .map(b => b.toString(16).padStart(2, "0"))
-      .join("");
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
   }
 
-  async function checkPassword() {
-    // Already authenticated this session
-    if (sessionStorage.getItem(SESSION_KEY) === "1") {
-      showApp();
+  function show(id) {
+    ["login-screen", "deny-screen", "app"].forEach(s => {
+      const el = document.getElementById(s);
+      if (el) el.style.display = "none";
+    });
+    const target = document.getElementById(id);
+    if (target) target.style.display = "flex";
+  }
+
+  async function checkSession() {
+    if (sessionStorage.getItem(SESSION_KEY) === "ok") {
+      show("app"); return;
+    }
+    show("login-screen");
+    setTimeout(() => document.getElementById("usr-input").focus(), 100);
+  }
+
+  async function submitLogin() {
+    const usr = document.getElementById("usr-input").value.trim();
+    const pwd = document.getElementById("pwd-input").value;
+    const btn = document.getElementById("login-btn");
+
+    if (!usr || !pwd) {
+      setError("Please enter both username and password.");
       return;
     }
-    showLock();
-  }
 
-  function showLock() {
-    document.getElementById("lock-screen").style.display = "flex";
-    document.getElementById("app").style.display        = "none";
-    setTimeout(() => document.getElementById("pwd-input").focus(), 100);
-  }
+    btn.disabled = true;
+    btn.textContent = "Verifying...";
 
-  function showApp() {
-    document.getElementById("lock-screen").style.display = "none";
-    document.getElementById("app").style.display        = "flex";
-    document.getElementById("app").style.width          = "100%";
-    document.getElementById("app").style.height         = "100vh";
-  }
+    const [uHash, pHash] = await Promise.all([sha256(usr), sha256(pwd)]);
 
-  async function submitPassword() {
-    const input = document.getElementById("pwd-input").value;
-    const hash  = await sha256(input);
-    if (hash === CORRECT_HASH) {
-      sessionStorage.setItem(SESSION_KEY, "1");
-      showApp();
+    if (uHash === VALID_USER && pHash === VALID_PASS) {
+      sessionStorage.setItem(SESSION_KEY, "ok");
+      show("app");
     } else {
-      const err = document.getElementById("pwd-error");
-      err.textContent = "Incorrect password. Try again.";
+      failCount++;
       document.getElementById("pwd-input").value = "";
-      document.getElementById("pwd-input").focus();
-      setTimeout(() => err.textContent = "", 3000);
+      if (failCount >= 3) {
+        // After 3 wrong attempts show the access denied page
+        show("deny-screen");
+      } else {
+        setError(`Invalid username or password. (${3 - failCount} attempt${3 - failCount === 1 ? "" : "s"} left)`);
+        btn.disabled = false;
+        btn.textContent = "Sign In";
+        document.getElementById(uHash === VALID_USER ? "pwd-input" : "usr-input").focus();
+      }
     }
+  }
+
+  function setError(msg) {
+    const el = document.getElementById("login-error");
+    el.textContent = msg;
+    el.style.display = "block";
+    document.getElementById("login-btn").disabled = false;
+    document.getElementById("login-btn").textContent = "Sign In";
+  }
+
+  function retryLogin() {
+    failCount = 0;
+    document.getElementById("usr-input").value = "";
+    document.getElementById("pwd-input").value = "";
+    document.getElementById("login-error").style.display = "none";
+    show("login-screen");
+    setTimeout(() => document.getElementById("usr-input").focus(), 100);
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("pwd-input").addEventListener("keydown", e => {
-      if (e.key === "Enter") submitPassword();
+    ["usr-input", "pwd-input"].forEach(id => {
+      document.getElementById(id).addEventListener("keydown", e => {
+        if (e.key === "Enter") submitLogin();
+      });
     });
-    checkPassword();
+    checkSession();
   });
 
   function toggle(header) {
@@ -693,39 +714,100 @@
   }
 </script>
 
-<!-- ── Lock screen overlay ─────────────────────────────────────────────── -->
-<div id="lock-screen" style="
+<!-- ══ Login Screen ══════════════════════════════════════════════════════════ -->
+<div id="login-screen" style="
   display:none; position:fixed; inset:0; z-index:9999;
-  background:#001529;
-  align-items:center; justify-content:center; flex-direction:column; gap:24px;
+  background:#0f172a;
+  align-items:center; justify-content:center;
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 ">
-  <div style="text-align:center; color:#fff;">
-    <div style="font-size:48px; margin-bottom:12px;">🔒</div>
-    <h1 style="font-size:20px; font-weight:700; margin-bottom:6px;">Coding Interview Patterns</h1>
-    <p style="font-size:13px; color:rgba(255,255,255,0.45);">Enter password to continue</p>
-  </div>
+  <div style="
+    background:#1e293b; border:1px solid #334155; border-radius:16px;
+    padding:40px 36px; width:360px; display:flex; flex-direction:column; gap:20px;
+    box-shadow:0 25px 60px rgba(0,0,0,0.5);
+  ">
+    <!-- Header -->
+    <div style="text-align:center;">
+      <div style="font-size:40px; margin-bottom:10px;">📚</div>
+      <h1 style="font-size:18px; font-weight:700; color:#f8fafc; margin-bottom:4px;">
+        Coding Interview Patterns
+      </h1>
+      <p style="font-size:13px; color:#64748b;">Sign in to access your study material</p>
+    </div>
 
-  <div style="display:flex; flex-direction:column; gap:10px; width:300px;">
-    <input
-      id="pwd-input"
-      type="password"
-      placeholder="Password"
-      style="
-        padding:12px 16px; border-radius:8px; border:1px solid rgba(255,255,255,0.15);
-        background:rgba(255,255,255,0.07); color:#fff; font-size:15px; outline:none;
-        width:100%;
-      "
-    />
-    <button
-      onclick="submitPassword()"
-      style="
-        padding:12px; border-radius:8px; border:none; cursor:pointer;
-        background:#1677ff; color:#fff; font-size:15px; font-weight:600;
-      "
-    >Unlock</button>
-    <p id="pwd-error" style="color:#ff4d4f; font-size:13px; text-align:center; min-height:18px;"></p>
+    <!-- Fields -->
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <div style="display:flex; flex-direction:column; gap:5px;">
+        <label style="font-size:12px; font-weight:600; color:#94a3b8; letter-spacing:.5px; text-transform:uppercase;">
+          Username
+        </label>
+        <input id="usr-input" type="text" placeholder="Enter username" autocomplete="username"
+          style="
+            padding:11px 14px; border-radius:8px; border:1px solid #334155;
+            background:#0f172a; color:#f1f5f9; font-size:14px; outline:none; width:100%;
+            transition:border-color .2s;
+          "
+          onfocus="this.style.borderColor='#3b82f6'"
+          onblur="this.style.borderColor='#334155'"
+        />
+      </div>
+      <div style="display:flex; flex-direction:column; gap:5px;">
+        <label style="font-size:12px; font-weight:600; color:#94a3b8; letter-spacing:.5px; text-transform:uppercase;">
+          Password
+        </label>
+        <input id="pwd-input" type="password" placeholder="Enter password" autocomplete="current-password"
+          style="
+            padding:11px 14px; border-radius:8px; border:1px solid #334155;
+            background:#0f172a; color:#f1f5f9; font-size:14px; outline:none; width:100%;
+            transition:border-color .2s;
+          "
+          onfocus="this.style.borderColor='#3b82f6'"
+          onblur="this.style.borderColor='#334155'"
+        />
+      </div>
+    </div>
+
+    <!-- Error -->
+    <p id="login-error" style="
+      display:none; color:#f87171; font-size:13px; text-align:center;
+      background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.2);
+      padding:8px 12px; border-radius:8px; margin:0;
+    "></p>
+
+    <!-- Button -->
+    <button id="login-btn" onclick="submitLogin()" style="
+      padding:13px; border-radius:8px; border:none; cursor:pointer;
+      background:#3b82f6; color:#fff; font-size:15px; font-weight:600;
+      transition:background .2s; width:100%;
+    "
+      onmouseover="if(!this.disabled) this.style.background='#2563eb'"
+      onmouseout="if(!this.disabled) this.style.background='#3b82f6'"
+    >Sign In</button>
   </div>
+</div>
+
+<!-- ══ Access Denied Screen ══════════════════════════════════════════════════ -->
+<div id="deny-screen" style="
+  display:none; position:fixed; inset:0; z-index:9999;
+  background:#0f172a;
+  align-items:center; justify-content:center; flex-direction:column; gap:20px;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  text-align:center;
+">
+  <div style="font-size:64px;">🚫</div>
+  <div>
+    <h1 style="font-size:22px; font-weight:700; color:#f8fafc; margin-bottom:8px;">
+      Access Denied
+    </h1>
+    <p style="font-size:14px; color:#64748b; max-width:320px; line-height:1.6;">
+      Too many failed attempts.<br>
+      Please contact the site owner for access.
+    </p>
+  </div>
+  <button onclick="retryLogin()" style="
+    margin-top:8px; padding:11px 28px; border-radius:8px; border:1px solid #334155;
+    background:transparent; color:#94a3b8; font-size:14px; cursor:pointer;
+  ">Try Again</button>
 </div>
 
 </div><!-- /app -->
