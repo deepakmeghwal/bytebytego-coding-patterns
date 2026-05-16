@@ -261,8 +261,8 @@
 </head>
 <body>
 
-<!-- ══ App (shown after unlock) ══════════════════════════ -->
-<div id="app" style="display:none; width:100%; height:100vh; flex:1; overflow:hidden;">
+<!-- ══ App (underneath login overlay — revealed after unlock) ════════════ -->
+<div id="app" style="visibility:hidden; width:100%; height:100vh; flex:1; overflow:hidden; display:flex;">
 
 <!-- ══ Sidebar ════════════════════════════════════════════ -->
 <aside id="sider">
@@ -634,20 +634,27 @@
   }
 
   function show(id) {
-    ["login-screen", "deny-screen", "app"].forEach(s => {
+    ["login-screen", "deny-screen"].forEach(s => {
       const el = document.getElementById(s);
       if (el) el.style.display = "none";
     });
+    // App is always in the DOM — just hide/show the overlay screens
     const target = document.getElementById(id);
-    if (target) target.style.display = "flex";
+    if (target && id !== "app") target.style.display = "flex";
+    // Show app by removing the overlay (app is visible by default underneath)
+    document.getElementById("app").style.visibility =
+      id === "app" ? "visible" : "hidden";
   }
 
   async function checkSession() {
     if (sessionStorage.getItem(SESSION_KEY) === "ok") {
       show("app"); return;
     }
-    show("login-screen");
-    setTimeout(() => document.getElementById("usr-input").focus(), 100);
+    // Login screen is visible by default (no JS needed)
+    setTimeout(() => {
+      const u = document.getElementById("usr-input");
+      if (u) u.focus();
+    }, 100);
   }
 
   async function submitLogin() {
@@ -714,9 +721,9 @@
   }
 </script>
 
-<!-- ══ Login Screen ══════════════════════════════════════════════════════════ -->
+<!-- ══ Login Screen (visible by default — no JS needed) ═════════════════════ -->
 <div id="login-screen" style="
-  display:none; position:fixed; inset:0; z-index:9999;
+  display:flex; position:fixed; inset:0; z-index:9999;
   background:#0f172a;
   align-items:center; justify-content:center;
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
