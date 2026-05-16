@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Coding Interview Patterns — Offline</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,10 +33,15 @@
 
   body {
     font-family: var(--font);
-    background: var(--content-bg);
+    background: #0f172a; /* dark — matches login screen, zero white flash */
     color: var(--content-text);
     display: flex;
     height: 100vh;
+  }
+
+  /* light background lives on the content area, not body */
+  #content {
+    background: var(--content-bg) !important;
   }
 
   /* ══════════════ SIDEBAR ══════════════ */
