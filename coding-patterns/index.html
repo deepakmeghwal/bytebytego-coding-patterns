@@ -261,6 +261,9 @@
 </head>
 <body>
 
+<!-- ══ App (shown after unlock) ══════════════════════════ -->
+<div id="app" style="display:none; width:100%; height:100vh; flex:1; overflow:hidden;">
+
 <!-- ══ Sidebar ════════════════════════════════════════════ -->
 <aside id="sider">
   <div class="sider-head">
@@ -619,9 +622,112 @@
 </main>
 
 <script>
+  /* ── Password gate ────────────────────────────────────────────────────────
+     To change the password:
+       1. Pick any password string
+       2. Run in browser console: sha256("yournewpassword")
+       3. Replace CORRECT_HASH below with the result
+  ── */
+  const CORRECT_HASH = "ef92b778bafe771207b1e83de5a23a70e5e8f1af5d72dcb7b0c8c2047a71dd3b";
+  // ↑ default password: Study@2024
+  // Change it using the instructions above
+
+  const SESSION_KEY = "bbg_auth";
+
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest(
+      "SHA-256",
+      new TextEncoder().encode(str)
+    );
+    return Array.from(new Uint8Array(buf))
+      .map(b => b.toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  async function checkPassword() {
+    // Already authenticated this session
+    if (sessionStorage.getItem(SESSION_KEY) === "1") {
+      showApp();
+      return;
+    }
+    showLock();
+  }
+
+  function showLock() {
+    document.getElementById("lock-screen").style.display = "flex";
+    document.getElementById("app").style.display        = "none";
+    setTimeout(() => document.getElementById("pwd-input").focus(), 100);
+  }
+
+  function showApp() {
+    document.getElementById("lock-screen").style.display = "none";
+    document.getElementById("app").style.display        = "flex";
+    document.getElementById("app").style.width          = "100%";
+    document.getElementById("app").style.height         = "100vh";
+  }
+
+  async function submitPassword() {
+    const input = document.getElementById("pwd-input").value;
+    const hash  = await sha256(input);
+    if (hash === CORRECT_HASH) {
+      sessionStorage.setItem(SESSION_KEY, "1");
+      showApp();
+    } else {
+      const err = document.getElementById("pwd-error");
+      err.textContent = "Incorrect password. Try again.";
+      document.getElementById("pwd-input").value = "";
+      document.getElementById("pwd-input").focus();
+      setTimeout(() => err.textContent = "", 3000);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("pwd-input").addEventListener("keydown", e => {
+      if (e.key === "Enter") submitPassword();
+    });
+    checkPassword();
+  });
+
   function toggle(header) {
     header.closest('.chapter').classList.toggle('open');
   }
 </script>
+
+<!-- ── Lock screen overlay ─────────────────────────────────────────────── -->
+<div id="lock-screen" style="
+  display:none; position:fixed; inset:0; z-index:9999;
+  background:#001529;
+  align-items:center; justify-content:center; flex-direction:column; gap:24px;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+">
+  <div style="text-align:center; color:#fff;">
+    <div style="font-size:48px; margin-bottom:12px;">🔒</div>
+    <h1 style="font-size:20px; font-weight:700; margin-bottom:6px;">Coding Interview Patterns</h1>
+    <p style="font-size:13px; color:rgba(255,255,255,0.45);">Enter password to continue</p>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:10px; width:300px;">
+    <input
+      id="pwd-input"
+      type="password"
+      placeholder="Password"
+      style="
+        padding:12px 16px; border-radius:8px; border:1px solid rgba(255,255,255,0.15);
+        background:rgba(255,255,255,0.07); color:#fff; font-size:15px; outline:none;
+        width:100%;
+      "
+    />
+    <button
+      onclick="submitPassword()"
+      style="
+        padding:12px; border-radius:8px; border:none; cursor:pointer;
+        background:#1677ff; color:#fff; font-size:15px; font-weight:600;
+      "
+    >Unlock</button>
+    <p id="pwd-error" style="color:#ff4d4f; font-size:13px; text-align:center; min-height:18px;"></p>
+  </div>
+</div>
+
+</div><!-- /app -->
 </body>
 </html>
