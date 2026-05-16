@@ -208,12 +208,20 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    background: var(--content-bg);
+    position: relative;
+  }
+
+  #welcome-screen {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 20px;
     padding: 48px;
     text-align: center;
-    background: var(--content-bg);
+    flex: 1;
     overflow: auto;
   }
 
@@ -292,13 +300,13 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="two-pointers/introduction-to-two-pointers.html" target="_blank"><span class="lesson-dot"></span>Introduction to Two Pointers</a></div>
-        <div class="lesson-item"><a href="two-pointers/pair-sum-sorted.html" target="_blank"><span class="lesson-dot"></span>Pair Sum - Sorted</a></div>
-        <div class="lesson-item"><a href="two-pointers/triplet-sum.html" target="_blank"><span class="lesson-dot"></span>Triplet Sum</a></div>
-        <div class="lesson-item"><a href="two-pointers/is-palindrome-valid.html" target="_blank"><span class="lesson-dot"></span>Is Palindrome Valid</a></div>
-        <div class="lesson-item"><a href="two-pointers/largest-container.html" target="_blank"><span class="lesson-dot"></span>Largest Container</a></div>
-        <div class="lesson-item"><a href="two-pointers/shift-zeros-to-the-end.html" target="_blank"><span class="lesson-dot"></span>Shift Zeros to the End</a></div>
-        <div class="lesson-item"><a href="two-pointers/next-lexicographical-sequence.html" target="_blank"><span class="lesson-dot"></span>Next Lexicographical Sequence</a></div>
+        <div class="lesson-item"><a href="two-pointers/introduction-to-two-pointers.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Two Pointers</a></div>
+        <div class="lesson-item"><a href="two-pointers/pair-sum-sorted.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Pair Sum - Sorted</a></div>
+        <div class="lesson-item"><a href="two-pointers/triplet-sum.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Triplet Sum</a></div>
+        <div class="lesson-item"><a href="two-pointers/is-palindrome-valid.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Is Palindrome Valid</a></div>
+        <div class="lesson-item"><a href="two-pointers/largest-container.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Largest Container</a></div>
+        <div class="lesson-item"><a href="two-pointers/shift-zeros-to-the-end.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Shift Zeros to the End</a></div>
+        <div class="lesson-item"><a href="two-pointers/next-lexicographical-sequence.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Next Lexicographical Sequence</a></div>
       </div>
     </div>
 
@@ -310,12 +318,12 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="hash-maps-and-sets/introduction-to-hash-maps-and-sets.html" target="_blank"><span class="lesson-dot"></span>Introduction to Hash Maps and Sets</a></div>
-        <div class="lesson-item"><a href="hash-maps-and-sets/pair-sum-unsorted.html" target="_blank"><span class="lesson-dot"></span>Pair Sum - Unsorted</a></div>
-        <div class="lesson-item"><a href="hash-maps-and-sets/verify-sudoku-board.html" target="_blank"><span class="lesson-dot"></span>Verify Sudoku Board</a></div>
-        <div class="lesson-item"><a href="hash-maps-and-sets/zero-striping.html" target="_blank"><span class="lesson-dot"></span>Zero Striping</a></div>
-        <div class="lesson-item"><a href="hash-maps-and-sets/longest-chain-of-consecutive-numbers.html" target="_blank"><span class="lesson-dot"></span>Longest Chain of Consecutive Numbers</a></div>
-        <div class="lesson-item"><a href="hash-maps-and-sets/geometric-sequence-triplets.html" target="_blank"><span class="lesson-dot"></span>Geometric Sequence Triplets</a></div>
+        <div class="lesson-item"><a href="hash-maps-and-sets/introduction-to-hash-maps-and-sets.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Hash Maps and Sets</a></div>
+        <div class="lesson-item"><a href="hash-maps-and-sets/pair-sum-unsorted.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Pair Sum - Unsorted</a></div>
+        <div class="lesson-item"><a href="hash-maps-and-sets/verify-sudoku-board.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Verify Sudoku Board</a></div>
+        <div class="lesson-item"><a href="hash-maps-and-sets/zero-striping.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Zero Striping</a></div>
+        <div class="lesson-item"><a href="hash-maps-and-sets/longest-chain-of-consecutive-numbers.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Longest Chain of Consecutive Numbers</a></div>
+        <div class="lesson-item"><a href="hash-maps-and-sets/geometric-sequence-triplets.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Geometric Sequence Triplets</a></div>
       </div>
     </div>
 
@@ -327,13 +335,13 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="linked-lists/introduction-to-linked-lists.html" target="_blank"><span class="lesson-dot"></span>Introduction to Linked Lists</a></div>
-        <div class="lesson-item"><a href="linked-lists/linked-list-reversal.html" target="_blank"><span class="lesson-dot"></span>Linked List Reversal</a></div>
-        <div class="lesson-item"><a href="linked-lists/remove-the-kth-last-node-from-a-linked-list.html" target="_blank"><span class="lesson-dot"></span>Remove the Kth Last Node From a Linked List</a></div>
-        <div class="lesson-item"><a href="linked-lists/linked-list-intersection.html" target="_blank"><span class="lesson-dot"></span>Linked List Intersection</a></div>
-        <div class="lesson-item"><a href="linked-lists/lru-cache.html" target="_blank"><span class="lesson-dot"></span>LRU Cache</a></div>
-        <div class="lesson-item"><a href="linked-lists/palindromic-linked-list.html" target="_blank"><span class="lesson-dot"></span>Palindromic Linked List</a></div>
-        <div class="lesson-item"><a href="linked-lists/flatten-a-multi-level-linked-list.html" target="_blank"><span class="lesson-dot"></span>Flatten a Multi-Level Linked List</a></div>
+        <div class="lesson-item"><a href="linked-lists/introduction-to-linked-lists.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Linked Lists</a></div>
+        <div class="lesson-item"><a href="linked-lists/linked-list-reversal.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Linked List Reversal</a></div>
+        <div class="lesson-item"><a href="linked-lists/remove-the-kth-last-node-from-a-linked-list.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Remove the Kth Last Node From a Linked List</a></div>
+        <div class="lesson-item"><a href="linked-lists/linked-list-intersection.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Linked List Intersection</a></div>
+        <div class="lesson-item"><a href="linked-lists/lru-cache.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>LRU Cache</a></div>
+        <div class="lesson-item"><a href="linked-lists/palindromic-linked-list.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Palindromic Linked List</a></div>
+        <div class="lesson-item"><a href="linked-lists/flatten-a-multi-level-linked-list.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Flatten a Multi-Level Linked List</a></div>
       </div>
     </div>
 
@@ -345,10 +353,10 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="fast-and-slow-pointers/introduction-to-fast-and-slow-pointers.html" target="_blank"><span class="lesson-dot"></span>Introduction to Fast and Slow Pointers</a></div>
-        <div class="lesson-item"><a href="fast-and-slow-pointers/linked-list-loop.html" target="_blank"><span class="lesson-dot"></span>Linked List Loop</a></div>
-        <div class="lesson-item"><a href="fast-and-slow-pointers/linked-list-midpoint.html" target="_blank"><span class="lesson-dot"></span>Linked List Midpoint</a></div>
-        <div class="lesson-item"><a href="fast-and-slow-pointers/happy-number.html" target="_blank"><span class="lesson-dot"></span>Happy Number</a></div>
+        <div class="lesson-item"><a href="fast-and-slow-pointers/introduction-to-fast-and-slow-pointers.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Fast and Slow Pointers</a></div>
+        <div class="lesson-item"><a href="fast-and-slow-pointers/linked-list-loop.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Linked List Loop</a></div>
+        <div class="lesson-item"><a href="fast-and-slow-pointers/linked-list-midpoint.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Linked List Midpoint</a></div>
+        <div class="lesson-item"><a href="fast-and-slow-pointers/happy-number.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Happy Number</a></div>
       </div>
     </div>
 
@@ -360,10 +368,10 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="sliding-windows/introduction-to-sliding-windows.html" target="_blank"><span class="lesson-dot"></span>Introduction to Sliding Windows</a></div>
-        <div class="lesson-item"><a href="sliding-windows/substring-anagrams.html" target="_blank"><span class="lesson-dot"></span>Substring Anagrams</a></div>
-        <div class="lesson-item"><a href="sliding-windows/longest-substring-with-unique-characters.html" target="_blank"><span class="lesson-dot"></span>Longest Substring With Unique Characters</a></div>
-        <div class="lesson-item"><a href="sliding-windows/longest-uniform-substring-after-replacements.html" target="_blank"><span class="lesson-dot"></span>Longest Uniform Substring After Replacements</a></div>
+        <div class="lesson-item"><a href="sliding-windows/introduction-to-sliding-windows.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Sliding Windows</a></div>
+        <div class="lesson-item"><a href="sliding-windows/substring-anagrams.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Substring Anagrams</a></div>
+        <div class="lesson-item"><a href="sliding-windows/longest-substring-with-unique-characters.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Longest Substring With Unique Characters</a></div>
+        <div class="lesson-item"><a href="sliding-windows/longest-uniform-substring-after-replacements.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Longest Uniform Substring After Replacements</a></div>
       </div>
     </div>
 
@@ -375,15 +383,15 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="binary-search/introduction-to-binary-search.html" target="_blank"><span class="lesson-dot"></span>Introduction to Binary Search</a></div>
-        <div class="lesson-item"><a href="binary-search/find-the-insertion-index.html" target="_blank"><span class="lesson-dot"></span>Find the Insertion Index</a></div>
-        <div class="lesson-item"><a href="binary-search/first-and-last-occurrences-of-a-number.html" target="_blank"><span class="lesson-dot"></span>First and Last Occurrences of a Number</a></div>
-        <div class="lesson-item"><a href="binary-search/cutting-wood.html" target="_blank"><span class="lesson-dot"></span>Cutting Wood</a></div>
-        <div class="lesson-item"><a href="binary-search/find-the-target-in-a-rotated-sorted-array.html" target="_blank"><span class="lesson-dot"></span>Find the Target in a Rotated Sorted Array</a></div>
-        <div class="lesson-item"><a href="binary-search/find-the-median-from-two-sorted-arrays.html" target="_blank"><span class="lesson-dot"></span>Find the Median From Two Sorted Arrays</a></div>
-        <div class="lesson-item"><a href="binary-search/matrix-search.html" target="_blank"><span class="lesson-dot"></span>Matrix Search</a></div>
-        <div class="lesson-item"><a href="binary-search/local-maxima-in-array.html" target="_blank"><span class="lesson-dot"></span>Local Maxima in Array</a></div>
-        <div class="lesson-item"><a href="binary-search/weighted-random-selection.html" target="_blank"><span class="lesson-dot"></span>Weighted Random Selection</a></div>
+        <div class="lesson-item"><a href="binary-search/introduction-to-binary-search.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Binary Search</a></div>
+        <div class="lesson-item"><a href="binary-search/find-the-insertion-index.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Find the Insertion Index</a></div>
+        <div class="lesson-item"><a href="binary-search/first-and-last-occurrences-of-a-number.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>First and Last Occurrences of a Number</a></div>
+        <div class="lesson-item"><a href="binary-search/cutting-wood.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Cutting Wood</a></div>
+        <div class="lesson-item"><a href="binary-search/find-the-target-in-a-rotated-sorted-array.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Find the Target in a Rotated Sorted Array</a></div>
+        <div class="lesson-item"><a href="binary-search/find-the-median-from-two-sorted-arrays.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Find the Median From Two Sorted Arrays</a></div>
+        <div class="lesson-item"><a href="binary-search/matrix-search.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Matrix Search</a></div>
+        <div class="lesson-item"><a href="binary-search/local-maxima-in-array.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Local Maxima in Array</a></div>
+        <div class="lesson-item"><a href="binary-search/weighted-random-selection.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Weighted Random Selection</a></div>
       </div>
     </div>
 
@@ -395,13 +403,13 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="stacks/introduction-to-stacks.html" target="_blank"><span class="lesson-dot"></span>Introduction to Stacks</a></div>
-        <div class="lesson-item"><a href="stacks/valid-parenthesis-expression.html" target="_blank"><span class="lesson-dot"></span>Valid Parenthesis Expression</a></div>
-        <div class="lesson-item"><a href="stacks/next-largest-number-to-the-right.html" target="_blank"><span class="lesson-dot"></span>Next Largest Number to the Right</a></div>
-        <div class="lesson-item"><a href="stacks/evaluate-expression.html" target="_blank"><span class="lesson-dot"></span>Evaluate Expression</a></div>
-        <div class="lesson-item"><a href="stacks/repeated-removal-of-adjacent-duplicates.html" target="_blank"><span class="lesson-dot"></span>Repeated Removal of Adjacent Duplicates</a></div>
-        <div class="lesson-item"><a href="stacks/implement-a-queue-using-stacks.html" target="_blank"><span class="lesson-dot"></span>Implement a Queue using Stacks</a></div>
-        <div class="lesson-item"><a href="stacks/maximums-of-sliding-window.html" target="_blank"><span class="lesson-dot"></span>Maximums of Sliding Window</a></div>
+        <div class="lesson-item"><a href="stacks/introduction-to-stacks.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Stacks</a></div>
+        <div class="lesson-item"><a href="stacks/valid-parenthesis-expression.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Valid Parenthesis Expression</a></div>
+        <div class="lesson-item"><a href="stacks/next-largest-number-to-the-right.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Next Largest Number to the Right</a></div>
+        <div class="lesson-item"><a href="stacks/evaluate-expression.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Evaluate Expression</a></div>
+        <div class="lesson-item"><a href="stacks/repeated-removal-of-adjacent-duplicates.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Repeated Removal of Adjacent Duplicates</a></div>
+        <div class="lesson-item"><a href="stacks/implement-a-queue-using-stacks.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Implement a Queue using Stacks</a></div>
+        <div class="lesson-item"><a href="stacks/maximums-of-sliding-window.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Maximums of Sliding Window</a></div>
       </div>
     </div>
 
@@ -413,11 +421,11 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="heaps/introduction-to-heaps.html" target="_blank"><span class="lesson-dot"></span>Introduction to Heaps</a></div>
-        <div class="lesson-item"><a href="heaps/k-most-frequent-strings.html" target="_blank"><span class="lesson-dot"></span>K Most Frequent Strings</a></div>
-        <div class="lesson-item"><a href="heaps/combine-sorted-linked-lists.html" target="_blank"><span class="lesson-dot"></span>Combine Sorted Linked Lists</a></div>
-        <div class="lesson-item"><a href="heaps/median-of-an-integer-stream.html" target="_blank"><span class="lesson-dot"></span>Median of an Integer Stream</a></div>
-        <div class="lesson-item"><a href="heaps/sort-a-k-sorted-array.html" target="_blank"><span class="lesson-dot"></span>Sort a K-Sorted Array</a></div>
+        <div class="lesson-item"><a href="heaps/introduction-to-heaps.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Heaps</a></div>
+        <div class="lesson-item"><a href="heaps/k-most-frequent-strings.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>K Most Frequent Strings</a></div>
+        <div class="lesson-item"><a href="heaps/combine-sorted-linked-lists.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Combine Sorted Linked Lists</a></div>
+        <div class="lesson-item"><a href="heaps/median-of-an-integer-stream.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Median of an Integer Stream</a></div>
+        <div class="lesson-item"><a href="heaps/sort-a-k-sorted-array.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Sort a K-Sorted Array</a></div>
       </div>
     </div>
 
@@ -429,10 +437,10 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="intervals/introduction-to-intervals.html" target="_blank"><span class="lesson-dot"></span>Introduction to Intervals</a></div>
-        <div class="lesson-item"><a href="intervals/merge-overlapping-intervals.html" target="_blank"><span class="lesson-dot"></span>Merge Overlapping Intervals</a></div>
-        <div class="lesson-item"><a href="intervals/identify-all-interval-overlaps.html" target="_blank"><span class="lesson-dot"></span>Identify All Interval Overlaps</a></div>
-        <div class="lesson-item"><a href="intervals/largest-overlap-of-intervals.html" target="_blank"><span class="lesson-dot"></span>Largest Overlap of Intervals</a></div>
+        <div class="lesson-item"><a href="intervals/introduction-to-intervals.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Intervals</a></div>
+        <div class="lesson-item"><a href="intervals/merge-overlapping-intervals.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Merge Overlapping Intervals</a></div>
+        <div class="lesson-item"><a href="intervals/identify-all-interval-overlaps.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Identify All Interval Overlaps</a></div>
+        <div class="lesson-item"><a href="intervals/largest-overlap-of-intervals.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Largest Overlap of Intervals</a></div>
       </div>
     </div>
 
@@ -444,10 +452,10 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="prefix-sums/introduction-to-prefix-sums.html" target="_blank"><span class="lesson-dot"></span>Introduction to Prefix Sums</a></div>
-        <div class="lesson-item"><a href="prefix-sums/sum-between-range.html" target="_blank"><span class="lesson-dot"></span>Sum Between Range</a></div>
-        <div class="lesson-item"><a href="prefix-sums/k-sum-subarrays.html" target="_blank"><span class="lesson-dot"></span>K-Sum Subarrays</a></div>
-        <div class="lesson-item"><a href="prefix-sums/product-array-without-current-element.html" target="_blank"><span class="lesson-dot"></span>Product Array Without Current Element</a></div>
+        <div class="lesson-item"><a href="prefix-sums/introduction-to-prefix-sums.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Prefix Sums</a></div>
+        <div class="lesson-item"><a href="prefix-sums/sum-between-range.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Sum Between Range</a></div>
+        <div class="lesson-item"><a href="prefix-sums/k-sum-subarrays.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>K-Sum Subarrays</a></div>
+        <div class="lesson-item"><a href="prefix-sums/product-array-without-current-element.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Product Array Without Current Element</a></div>
       </div>
     </div>
 
@@ -459,19 +467,19 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="trees/introduction-to-trees.html" target="_blank"><span class="lesson-dot"></span>Introduction to Trees</a></div>
-        <div class="lesson-item"><a href="trees/invert-binary-tree.html" target="_blank"><span class="lesson-dot"></span>Invert Binary Tree</a></div>
-        <div class="lesson-item"><a href="trees/balanced-binary-tree-validation.html" target="_blank"><span class="lesson-dot"></span>Balanced Binary Tree Validation</a></div>
-        <div class="lesson-item"><a href="trees/rightmost-nodes-of-a-binary-tree.html" target="_blank"><span class="lesson-dot"></span>Rightmost Nodes of a Binary Tree</a></div>
-        <div class="lesson-item"><a href="trees/widest-binary-tree-level.html" target="_blank"><span class="lesson-dot"></span>Widest Binary Tree Level</a></div>
-        <div class="lesson-item"><a href="trees/binary-search-tree-validation.html" target="_blank"><span class="lesson-dot"></span>Binary Search Tree Validation</a></div>
-        <div class="lesson-item"><a href="trees/lowest-common-ancestor.html" target="_blank"><span class="lesson-dot"></span>Lowest Common Ancestor</a></div>
-        <div class="lesson-item"><a href="trees/build-binary-tree-from-preorder-and-inorder-traversals.html" target="_blank"><span class="lesson-dot"></span>Build Binary Tree From Preorder and Inorder Traversals</a></div>
-        <div class="lesson-item"><a href="trees/maximum-sum-of-a-continuous-path-in-a-binary-tree.html" target="_blank"><span class="lesson-dot"></span>Maximum Sum of a Continuous Path in a Binary Tree</a></div>
-        <div class="lesson-item"><a href="trees/binary-tree-symmetry.html" target="_blank"><span class="lesson-dot"></span>Binary Tree Symmetry</a></div>
-        <div class="lesson-item"><a href="trees/binary-tree-columns.html" target="_blank"><span class="lesson-dot"></span>Binary Tree Columns</a></div>
-        <div class="lesson-item"><a href="trees/kth-smallest-number-in-a-binary-search-tree.html" target="_blank"><span class="lesson-dot"></span>Kth Smallest Number in a Binary Search Tree</a></div>
-        <div class="lesson-item"><a href="trees/serialize-and-deserialize-a-binary-tree.html" target="_blank"><span class="lesson-dot"></span>Serialize and Deserialize a Binary Tree</a></div>
+        <div class="lesson-item"><a href="trees/introduction-to-trees.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Trees</a></div>
+        <div class="lesson-item"><a href="trees/invert-binary-tree.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Invert Binary Tree</a></div>
+        <div class="lesson-item"><a href="trees/balanced-binary-tree-validation.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Balanced Binary Tree Validation</a></div>
+        <div class="lesson-item"><a href="trees/rightmost-nodes-of-a-binary-tree.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Rightmost Nodes of a Binary Tree</a></div>
+        <div class="lesson-item"><a href="trees/widest-binary-tree-level.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Widest Binary Tree Level</a></div>
+        <div class="lesson-item"><a href="trees/binary-search-tree-validation.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Binary Search Tree Validation</a></div>
+        <div class="lesson-item"><a href="trees/lowest-common-ancestor.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Lowest Common Ancestor</a></div>
+        <div class="lesson-item"><a href="trees/build-binary-tree-from-preorder-and-inorder-traversals.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Build Binary Tree From Preorder and Inorder Traversals</a></div>
+        <div class="lesson-item"><a href="trees/maximum-sum-of-a-continuous-path-in-a-binary-tree.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Maximum Sum of a Continuous Path in a Binary Tree</a></div>
+        <div class="lesson-item"><a href="trees/binary-tree-symmetry.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Binary Tree Symmetry</a></div>
+        <div class="lesson-item"><a href="trees/binary-tree-columns.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Binary Tree Columns</a></div>
+        <div class="lesson-item"><a href="trees/kth-smallest-number-in-a-binary-search-tree.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Kth Smallest Number in a Binary Search Tree</a></div>
+        <div class="lesson-item"><a href="trees/serialize-and-deserialize-a-binary-tree.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Serialize and Deserialize a Binary Tree</a></div>
       </div>
     </div>
 
@@ -483,10 +491,10 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="tries/introduction-to-tries.html" target="_blank"><span class="lesson-dot"></span>Introduction to Tries</a></div>
-        <div class="lesson-item"><a href="tries/design-a-trie.html" target="_blank"><span class="lesson-dot"></span>Design a Trie</a></div>
-        <div class="lesson-item"><a href="tries/insert-and-search-words-with-wildcards.html" target="_blank"><span class="lesson-dot"></span>Insert and Search Words with Wildcards</a></div>
-        <div class="lesson-item"><a href="tries/find-all-words-on-a-board.html" target="_blank"><span class="lesson-dot"></span>Find All Words on a Board</a></div>
+        <div class="lesson-item"><a href="tries/introduction-to-tries.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Tries</a></div>
+        <div class="lesson-item"><a href="tries/design-a-trie.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Design a Trie</a></div>
+        <div class="lesson-item"><a href="tries/insert-and-search-words-with-wildcards.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Insert and Search Words with Wildcards</a></div>
+        <div class="lesson-item"><a href="tries/find-all-words-on-a-board.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Find All Words on a Board</a></div>
       </div>
     </div>
 
@@ -498,17 +506,17 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="graphs/introduction-to-graphs.html" target="_blank"><span class="lesson-dot"></span>Introduction to Graphs</a></div>
-        <div class="lesson-item"><a href="graphs/graph-deep-copy.html" target="_blank"><span class="lesson-dot"></span>Graph Deep Copy</a></div>
-        <div class="lesson-item"><a href="graphs/count-islands.html" target="_blank"><span class="lesson-dot"></span>Count Islands</a></div>
-        <div class="lesson-item"><a href="graphs/matrix-infection.html" target="_blank"><span class="lesson-dot"></span>Matrix Infection</a></div>
-        <div class="lesson-item"><a href="graphs/bipartite-graph-validation.html" target="_blank"><span class="lesson-dot"></span>Bipartite Graph Validation</a></div>
-        <div class="lesson-item"><a href="graphs/longest-increasing-path.html" target="_blank"><span class="lesson-dot"></span>Longest Increasing Path</a></div>
-        <div class="lesson-item"><a href="graphs/shortest-transformation-sequence.html" target="_blank"><span class="lesson-dot"></span>Shortest Transformation Sequence</a></div>
-        <div class="lesson-item"><a href="graphs/merging-communities.html" target="_blank"><span class="lesson-dot"></span>Merging Communities</a></div>
-        <div class="lesson-item"><a href="graphs/prerequisites.html" target="_blank"><span class="lesson-dot"></span>Prerequisites</a></div>
-        <div class="lesson-item"><a href="graphs/shortest-path.html" target="_blank"><span class="lesson-dot"></span>Shortest Path</a></div>
-        <div class="lesson-item"><a href="graphs/connect-the-dots.html" target="_blank"><span class="lesson-dot"></span>Connect the Dots</a></div>
+        <div class="lesson-item"><a href="graphs/introduction-to-graphs.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Graphs</a></div>
+        <div class="lesson-item"><a href="graphs/graph-deep-copy.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Graph Deep Copy</a></div>
+        <div class="lesson-item"><a href="graphs/count-islands.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Count Islands</a></div>
+        <div class="lesson-item"><a href="graphs/matrix-infection.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Matrix Infection</a></div>
+        <div class="lesson-item"><a href="graphs/bipartite-graph-validation.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Bipartite Graph Validation</a></div>
+        <div class="lesson-item"><a href="graphs/longest-increasing-path.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Longest Increasing Path</a></div>
+        <div class="lesson-item"><a href="graphs/shortest-transformation-sequence.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Shortest Transformation Sequence</a></div>
+        <div class="lesson-item"><a href="graphs/merging-communities.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Merging Communities</a></div>
+        <div class="lesson-item"><a href="graphs/prerequisites.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Prerequisites</a></div>
+        <div class="lesson-item"><a href="graphs/shortest-path.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Shortest Path</a></div>
+        <div class="lesson-item"><a href="graphs/connect-the-dots.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Connect the Dots</a></div>
       </div>
     </div>
 
@@ -520,12 +528,12 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="backtracking/introduction-to-backtracking.html" target="_blank"><span class="lesson-dot"></span>Introduction to Backtracking</a></div>
-        <div class="lesson-item"><a href="backtracking/find-all-permutations.html" target="_blank"><span class="lesson-dot"></span>Find All Permutations</a></div>
-        <div class="lesson-item"><a href="backtracking/find-all-subsets.html" target="_blank"><span class="lesson-dot"></span>Find All Subsets</a></div>
-        <div class="lesson-item"><a href="backtracking/n-queens.html" target="_blank"><span class="lesson-dot"></span>N Queens</a></div>
-        <div class="lesson-item"><a href="backtracking/combinations-of-a-sum.html" target="_blank"><span class="lesson-dot"></span>Combinations of a Sum</a></div>
-        <div class="lesson-item"><a href="backtracking/phone-keypad-combinations.html" target="_blank"><span class="lesson-dot"></span>Phone Keypad Combinations</a></div>
+        <div class="lesson-item"><a href="backtracking/introduction-to-backtracking.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Backtracking</a></div>
+        <div class="lesson-item"><a href="backtracking/find-all-permutations.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Find All Permutations</a></div>
+        <div class="lesson-item"><a href="backtracking/find-all-subsets.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Find All Subsets</a></div>
+        <div class="lesson-item"><a href="backtracking/n-queens.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>N Queens</a></div>
+        <div class="lesson-item"><a href="backtracking/combinations-of-a-sum.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Combinations of a Sum</a></div>
+        <div class="lesson-item"><a href="backtracking/phone-keypad-combinations.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Phone Keypad Combinations</a></div>
       </div>
     </div>
 
@@ -537,16 +545,16 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="dynamic-programming/introduction-to-dynamic-programming.html" target="_blank"><span class="lesson-dot"></span>Introduction to Dynamic Programming</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/climbing-stairs.html" target="_blank"><span class="lesson-dot"></span>Climbing Stairs</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/minimum-coin-combination.html" target="_blank"><span class="lesson-dot"></span>Minimum Coin Combination</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/matrix-pathways.html" target="_blank"><span class="lesson-dot"></span>Matrix Pathways</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/neighborhood-burglary.html" target="_blank"><span class="lesson-dot"></span>Neighborhood Burglary</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/longest-common-subsequence.html" target="_blank"><span class="lesson-dot"></span>Longest Common Subsequence</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/longest-palindrome-in-a-string.html" target="_blank"><span class="lesson-dot"></span>Longest Palindrome in a String</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/maximum-subarray-sum.html" target="_blank"><span class="lesson-dot"></span>Maximum Subarray Sum</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/0-1-knapsack.html" target="_blank"><span class="lesson-dot"></span>0/1 Knapsack</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/largest-square-in-a-matrix.html" target="_blank"><span class="lesson-dot"></span>Largest Square in a Matrix</a></div>
+        <div class="lesson-item"><a href="dynamic-programming/introduction-to-dynamic-programming.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Dynamic Programming</a></div>
+        <div class="lesson-item"><a href="dynamic-programming/climbing-stairs.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Climbing Stairs</a></div>
+        <div class="lesson-item"><a href="dynamic-programming/minimum-coin-combination.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Minimum Coin Combination</a></div>
+        <div class="lesson-item"><a href="dynamic-programming/matrix-pathways.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Matrix Pathways</a></div>
+        <div class="lesson-item"><a href="dynamic-programming/neighborhood-burglary.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Neighborhood Burglary</a></div>
+        <div class="lesson-item"><a href="dynamic-programming/longest-common-subsequence.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Longest Common Subsequence</a></div>
+        <div class="lesson-item"><a href="dynamic-programming/longest-palindrome-in-a-string.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Longest Palindrome in a String</a></div>
+        <div class="lesson-item"><a href="dynamic-programming/maximum-subarray-sum.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Maximum Subarray Sum</a></div>
+        <div class="lesson-item"><a href="dynamic-programming/0-1-knapsack.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>0/1 Knapsack</a></div>
+        <div class="lesson-item"><a href="dynamic-programming/largest-square-in-a-matrix.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Largest Square in a Matrix</a></div>
       </div>
     </div>
 
@@ -558,10 +566,10 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="greedy/introduction-to-greedy-algorithms.html" target="_blank"><span class="lesson-dot"></span>Introduction to Greedy Algorithms</a></div>
-        <div class="lesson-item"><a href="greedy/jump-to-the-end.html" target="_blank"><span class="lesson-dot"></span>Jump to the End</a></div>
-        <div class="lesson-item"><a href="greedy/gas-stations.html" target="_blank"><span class="lesson-dot"></span>Gas Stations</a></div>
-        <div class="lesson-item"><a href="greedy/candies.html" target="_blank"><span class="lesson-dot"></span>Candies</a></div>
+        <div class="lesson-item"><a href="greedy/introduction-to-greedy-algorithms.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Greedy Algorithms</a></div>
+        <div class="lesson-item"><a href="greedy/jump-to-the-end.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Jump to the End</a></div>
+        <div class="lesson-item"><a href="greedy/gas-stations.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Gas Stations</a></div>
+        <div class="lesson-item"><a href="greedy/candies.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Candies</a></div>
       </div>
     </div>
 
@@ -573,11 +581,11 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="sort-and-search/introduction-to-sort-and-search.html" target="_blank"><span class="lesson-dot"></span>Introduction to Sort and Search</a></div>
-        <div class="lesson-item"><a href="sort-and-search/sort-linked-list.html" target="_blank"><span class="lesson-dot"></span>Sort Linked List</a></div>
-        <div class="lesson-item"><a href="sort-and-search/sort-array.html" target="_blank"><span class="lesson-dot"></span>Sort Array</a></div>
-        <div class="lesson-item"><a href="sort-and-search/kth-largest-integer.html" target="_blank"><span class="lesson-dot"></span>Kth Largest Integer</a></div>
-        <div class="lesson-item"><a href="sort-and-search/dutch-national-flag.html" target="_blank"><span class="lesson-dot"></span>Dutch National Flag</a></div>
+        <div class="lesson-item"><a href="sort-and-search/introduction-to-sort-and-search.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Sort and Search</a></div>
+        <div class="lesson-item"><a href="sort-and-search/sort-linked-list.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Sort Linked List</a></div>
+        <div class="lesson-item"><a href="sort-and-search/sort-array.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Sort Array</a></div>
+        <div class="lesson-item"><a href="sort-and-search/kth-largest-integer.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Kth Largest Integer</a></div>
+        <div class="lesson-item"><a href="sort-and-search/dutch-national-flag.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Dutch National Flag</a></div>
       </div>
     </div>
 
@@ -589,10 +597,10 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="bit-manipulation/introduction-to-bit-manipulation.html" target="_blank"><span class="lesson-dot"></span>Introduction to Bit Manipulation</a></div>
-        <div class="lesson-item"><a href="bit-manipulation/hamming-weights-of-integers.html" target="_blank"><span class="lesson-dot"></span>Hamming Weights of Integers</a></div>
-        <div class="lesson-item"><a href="bit-manipulation/lonely-integer.html" target="_blank"><span class="lesson-dot"></span>Lonely Integer</a></div>
-        <div class="lesson-item"><a href="bit-manipulation/swap-odd-and-even-bits.html" target="_blank"><span class="lesson-dot"></span>Swap Odd and Even Bits</a></div>
+        <div class="lesson-item"><a href="bit-manipulation/introduction-to-bit-manipulation.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Bit Manipulation</a></div>
+        <div class="lesson-item"><a href="bit-manipulation/hamming-weights-of-integers.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Hamming Weights of Integers</a></div>
+        <div class="lesson-item"><a href="bit-manipulation/lonely-integer.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Lonely Integer</a></div>
+        <div class="lesson-item"><a href="bit-manipulation/swap-odd-and-even-bits.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Swap Odd and Even Bits</a></div>
       </div>
     </div>
 
@@ -604,12 +612,12 @@
         <span class="ch-arrow">▶</span>
       </div>
       <div class="lesson-list">
-        <div class="lesson-item"><a href="math-and-geometry/introduction-to-math-and-geometry.html" target="_blank"><span class="lesson-dot"></span>Introduction to Math and Geometry</a></div>
-        <div class="lesson-item"><a href="math-and-geometry/spiral-traversal.html" target="_blank"><span class="lesson-dot"></span>Spiral Traversal</a></div>
-        <div class="lesson-item"><a href="math-and-geometry/reverse-32-bit-integer.html" target="_blank"><span class="lesson-dot"></span>Reverse 32-Bit Integer</a></div>
-        <div class="lesson-item"><a href="math-and-geometry/maximum-collinear-points.html" target="_blank"><span class="lesson-dot"></span>Maximum Collinear Points</a></div>
-        <div class="lesson-item"><a href="math-and-geometry/the-josephus-problem.html" target="_blank"><span class="lesson-dot"></span>The Josephus Problem</a></div>
-        <div class="lesson-item"><a href="math-and-geometry/triangle-numbers.html" target="_blank"><span class="lesson-dot"></span>Triangle Numbers</a></div>
+        <div class="lesson-item"><a href="math-and-geometry/introduction-to-math-and-geometry.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Math and Geometry</a></div>
+        <div class="lesson-item"><a href="math-and-geometry/spiral-traversal.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Spiral Traversal</a></div>
+        <div class="lesson-item"><a href="math-and-geometry/reverse-32-bit-integer.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Reverse 32-Bit Integer</a></div>
+        <div class="lesson-item"><a href="math-and-geometry/maximum-collinear-points.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Maximum Collinear Points</a></div>
+        <div class="lesson-item"><a href="math-and-geometry/the-josephus-problem.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>The Josephus Problem</a></div>
+        <div class="lesson-item"><a href="math-and-geometry/triangle-numbers.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Triangle Numbers</a></div>
       </div>
     </div>
 
@@ -618,15 +626,20 @@
 
 <!-- ══ Content ════════════════════════════════════════════ -->
 <main id="content">
-  <div class="logo-box">📖</div>
-  <h1>Coding Interview Patterns</h1>
-  <p>Select a lesson from the sidebar.<br>Each page opens in a new tab — fully offline with Java code.</p>
-  <div class="stats">
-    <div class="stat"><span class="stat-val">19</span><span class="stat-lbl">Chapters</span></div>
-    <div class="stat"><span class="stat-val">120</span><span class="stat-lbl">Lessons</span></div>
-    <div class="stat"><span class="stat-val">Java</span><span class="stat-lbl">Language</span></div>
+  <!-- Welcome placeholder — hidden once a lesson loads -->
+  <div id="welcome-screen">
+    <div class="logo-box">📖</div>
+    <h1>Coding Interview Patterns</h1>
+    <p>Select a lesson from the sidebar to begin.</p>
+    <div class="stats">
+      <div class="stat"><span class="stat-val">19</span><span class="stat-lbl">Chapters</span></div>
+      <div class="stat"><span class="stat-val">120</span><span class="stat-lbl">Lessons</span></div>
+      <div class="stat"><span class="stat-val">Java</span><span class="stat-lbl">Language</span></div>
+    </div>
+    <span class="hint">Saved offline · Java code pre-selected · All 120 lessons available</span>
   </div>
-  <span class="hint">Saved offline · Java code pre-selected · All 120 lessons available</span>
+  <!-- Lesson iframe — shown once a lesson is selected -->
+  <iframe id="lesson-frame" title="Lesson" style="display:none;border:none;width:100%;height:100%;flex:1;"></iframe>
 </main>
 
 </div><!-- /app — closed here so login/deny screens are outside app -->
@@ -726,8 +739,32 @@
     checkSession();
   });
 
+  const LESSONS = ["two-pointers/introduction-to-two-pointers.html", "two-pointers/pair-sum-sorted.html", "two-pointers/triplet-sum.html", "two-pointers/is-palindrome-valid.html", "two-pointers/largest-container.html", "two-pointers/shift-zeros-to-the-end.html", "two-pointers/next-lexicographical-sequence.html", "hash-maps-and-sets/introduction-to-hash-maps-and-sets.html", "hash-maps-and-sets/pair-sum-unsorted.html", "hash-maps-and-sets/verify-sudoku-board.html", "hash-maps-and-sets/zero-striping.html", "hash-maps-and-sets/longest-chain-of-consecutive-numbers.html", "hash-maps-and-sets/geometric-sequence-triplets.html", "linked-lists/introduction-to-linked-lists.html", "linked-lists/linked-list-reversal.html", "linked-lists/remove-the-kth-last-node-from-a-linked-list.html", "linked-lists/linked-list-intersection.html", "linked-lists/lru-cache.html", "linked-lists/palindromic-linked-list.html", "linked-lists/flatten-a-multi-level-linked-list.html", "fast-and-slow-pointers/introduction-to-fast-and-slow-pointers.html", "fast-and-slow-pointers/linked-list-loop.html", "fast-and-slow-pointers/linked-list-midpoint.html", "fast-and-slow-pointers/happy-number.html", "sliding-windows/introduction-to-sliding-windows.html", "sliding-windows/substring-anagrams.html", "sliding-windows/longest-substring-with-unique-characters.html", "sliding-windows/longest-uniform-substring-after-replacements.html", "binary-search/introduction-to-binary-search.html", "binary-search/find-the-insertion-index.html", "binary-search/first-and-last-occurrences-of-a-number.html", "binary-search/cutting-wood.html", "binary-search/find-the-target-in-a-rotated-sorted-array.html", "binary-search/find-the-median-from-two-sorted-arrays.html", "binary-search/matrix-search.html", "binary-search/local-maxima-in-array.html", "binary-search/weighted-random-selection.html", "stacks/introduction-to-stacks.html", "stacks/valid-parenthesis-expression.html", "stacks/next-largest-number-to-the-right.html", "stacks/evaluate-expression.html", "stacks/repeated-removal-of-adjacent-duplicates.html", "stacks/implement-a-queue-using-stacks.html", "stacks/maximums-of-sliding-window.html", "heaps/introduction-to-heaps.html", "heaps/k-most-frequent-strings.html", "heaps/combine-sorted-linked-lists.html", "heaps/median-of-an-integer-stream.html", "heaps/sort-a-k-sorted-array.html", "intervals/introduction-to-intervals.html", "intervals/merge-overlapping-intervals.html", "intervals/identify-all-interval-overlaps.html", "intervals/largest-overlap-of-intervals.html", "prefix-sums/introduction-to-prefix-sums.html", "prefix-sums/sum-between-range.html", "prefix-sums/k-sum-subarrays.html", "prefix-sums/product-array-without-current-element.html", "trees/introduction-to-trees.html", "trees/invert-binary-tree.html", "trees/balanced-binary-tree-validation.html", "trees/rightmost-nodes-of-a-binary-tree.html", "trees/widest-binary-tree-level.html", "trees/binary-search-tree-validation.html", "trees/lowest-common-ancestor.html", "trees/build-binary-tree-from-preorder-and-inorder-traversals.html", "trees/maximum-sum-of-a-continuous-path-in-a-binary-tree.html", "trees/binary-tree-symmetry.html", "trees/binary-tree-columns.html", "trees/kth-smallest-number-in-a-binary-search-tree.html", "trees/serialize-and-deserialize-a-binary-tree.html", "tries/introduction-to-tries.html", "tries/design-a-trie.html", "tries/insert-and-search-words-with-wildcards.html", "tries/find-all-words-on-a-board.html", "graphs/introduction-to-graphs.html", "graphs/graph-deep-copy.html", "graphs/count-islands.html", "graphs/matrix-infection.html", "graphs/bipartite-graph-validation.html", "graphs/longest-increasing-path.html", "graphs/shortest-transformation-sequence.html", "graphs/merging-communities.html", "graphs/prerequisites.html", "graphs/shortest-path.html", "graphs/connect-the-dots.html", "backtracking/introduction-to-backtracking.html", "backtracking/find-all-permutations.html", "backtracking/find-all-subsets.html", "backtracking/n-queens.html", "backtracking/combinations-of-a-sum.html", "backtracking/phone-keypad-combinations.html", "dynamic-programming/introduction-to-dynamic-programming.html", "dynamic-programming/climbing-stairs.html", "dynamic-programming/minimum-coin-combination.html", "dynamic-programming/matrix-pathways.html", "dynamic-programming/neighborhood-burglary.html", "dynamic-programming/longest-common-subsequence.html", "dynamic-programming/longest-palindrome-in-a-string.html", "dynamic-programming/maximum-subarray-sum.html", "dynamic-programming/0-1-knapsack.html", "dynamic-programming/largest-square-in-a-matrix.html", "greedy/introduction-to-greedy-algorithms.html", "greedy/jump-to-the-end.html", "greedy/gas-stations.html", "greedy/candies.html", "sort-and-search/introduction-to-sort-and-search.html", "sort-and-search/sort-linked-list.html", "sort-and-search/sort-array.html", "sort-and-search/kth-largest-integer.html", "sort-and-search/dutch-national-flag.html", "bit-manipulation/introduction-to-bit-manipulation.html", "bit-manipulation/hamming-weights-of-integers.html", "bit-manipulation/lonely-integer.html", "bit-manipulation/swap-odd-and-even-bits.html", "math-and-geometry/introduction-to-math-and-geometry.html", "math-and-geometry/spiral-traversal.html", "math-and-geometry/reverse-32-bit-integer.html", "math-and-geometry/maximum-collinear-points.html", "math-and-geometry/the-josephus-problem.html", "math-and-geometry/triangle-numbers.html"];
+
   function toggle(header) {
     header.closest('.chapter').classList.toggle('open');
+  }
+
+  function loadLesson(e, link) {
+    e.preventDefault();
+    const url = link.getAttribute('href');
+
+    // Mark active in sidebar
+    document.querySelectorAll('.lesson-item a').forEach(a => a.classList.remove('active'));
+    link.classList.add('active');
+
+    // Ensure chapter is expanded
+    const ch = link.closest('.chapter');
+    if (ch && !ch.classList.contains('open')) ch.classList.add('open');
+
+    // Scroll sidebar so active item is visible
+    link.scrollIntoView({ block: 'nearest' });
+
+    // Show iframe, hide welcome
+    document.getElementById('welcome-screen').style.display = 'none';
+    const frame = document.getElementById('lesson-frame');
+    frame.style.display = 'block';
+    frame.src = url;
   }
 </script>
 
