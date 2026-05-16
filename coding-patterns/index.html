@@ -6,708 +6,150 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>Coding Interview Patterns — Offline</title>
+<title>Coding Interview Patterns — Sign In</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --sidebar-bg:       rgb(62, 62, 62);   /* exact ByteByteGo sidebar color */
-    --sidebar-hover:    rgb(75, 75, 75);
-    --sidebar-active:   #1677ff;
-    --sidebar-border:   rgb(45, 45, 45);
-    --text-primary:     rgba(255,255,255,0.90);
-    --text-secondary:   rgba(255,255,255,0.45);
-    --text-active:      #fff;
-    --content-bg:       #f5f5f5;
-    --content-text:     rgba(0,0,0,0.88);
-    --progress-track:   rgba(255,255,255,0.15);
-    --progress-fill:    #52c41a;
-    --badge-bg:         rgba(255,255,255,0.12);
-    --submenu-bg:       rgb(50, 50, 50);   /* slightly darker for open lesson list */
-    --sidebar-width:    280px;
-    --font:             -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-                        "Helvetica Neue", Arial, sans-serif;
-  }
-
-  html, body { height: 100%; overflow: hidden; }
+  html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
 
   body {
-    font-family: var(--font);
     background: #f5f5f5;
-    color: var(--content-text);
     display: flex;
-    height: 100vh;
-  }
-
-  /* light background lives on the content area, not body */
-  #content {
-    background: var(--content-bg) !important;
-  }
-
-  /* ══════════════ SIDEBAR ══════════════ */
-  #sider {
-    width: var(--sidebar-width);
-    min-width: var(--sidebar-width);
-    background: var(--sidebar-bg);
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    overflow: hidden;
-    box-shadow: 2px 0 6px rgba(0,0,0,0.35);
-  }
-
-  /* Header */
-  .sider-head {
-    padding: 18px 16px 14px;
-    border-bottom: 1px solid var(--sidebar-border);
-    flex-shrink: 0;
-  }
-
-  .sider-head h2 {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-primary);
-    line-height: 1.4;
-    margin-bottom: 12px;
-  }
-
-  .progress-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .progress-track {
-    flex: 1;
-    height: 4px;
-    background: var(--progress-track);
-    border-radius: 9999px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: var(--progress-fill);
-    border-radius: 9999px;
-    width: 0%;
-  }
-
-  .progress-label {
-    font-size: 11px;
-    color: var(--text-secondary);
-    white-space: nowrap;
-  }
-
-  /* Scrollable menu */
-  .sider-menu {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-bottom: 20px;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255,255,255,0.1) transparent;
-  }
-  .sider-menu::-webkit-scrollbar { width: 4px; }
-  .sider-menu::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
-
-  /* ── Chapter (submenu) ── */
-  .chapter {
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-  }
-
-  .chapter-header {
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-    height: 44px;
-    cursor: pointer;
-    transition: background .15s;
-    user-select: none;
-    gap: 8px;
-  }
-  .chapter-header:hover { background: var(--sidebar-hover); }
-
-  .ch-num {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-secondary);
-    min-width: 20px;
-    letter-spacing: .3px;
-  }
-
-  .ch-title {
-    flex: 1;
-    font-size: 13.5px;
-    font-weight: 600;
-    color: var(--text-primary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .ch-count {
-    font-size: 11px;
-    color: var(--text-secondary);
-    background: var(--badge-bg);
-    padding: 1px 6px;
-    border-radius: 10px;
-    flex-shrink: 0;
-  }
-
-  .ch-arrow {
-    font-size: 9px;
-    color: var(--text-secondary);
-    transition: transform .2s ease;
-    flex-shrink: 0;
-  }
-  .chapter.open .ch-arrow { transform: rotate(90deg); }
-
-  /* ── Lesson list ── */
-  .lesson-list {
-    display: none;
-    padding: 4px 0;
-    background: var(--submenu-bg);
-  }
-  .chapter.open .lesson-list { display: block; }
-
-  .lesson-item a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0 16px 0 44px;
-    height: 38px;
-    color: rgba(255,255,255,0.65);
-    text-decoration: none;
-    font-size: 13px;
-    line-height: 1.35;
-    transition: color .15s, background .15s;
-    border-right: 3px solid transparent;
-  }
-  .lesson-item a:hover {
-    color: var(--text-active);
-    background: rgba(255,255,255,0.06);
-  }
-  .lesson-item a.active {
-    color: var(--text-active);
-    background: var(--sidebar-active);
-    border-right-color: transparent;
-  }
-
-  .lesson-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-    flex-shrink: 0;
-  }
-  .lesson-item a:hover .lesson-dot  { background: rgba(255,255,255,0.5); }
-  .lesson-item a.active .lesson-dot { background: #fff; }
-
-  /* ══════════════ MAIN CONTENT ══════════════ */
-  #content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    background: var(--content-bg);
-    position: relative;
-  }
-
-  #welcome-screen {
-    display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    min-height: 100vh;
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 40px 36px;
+    width: 360px;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
-    padding: 48px;
-    text-align: center;
-    flex: 1;
-    overflow: auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.10);
   }
 
-  .logo-box {
-    width: 72px;
-    height: 72px;
-    background: var(--sidebar-bg);
-    border-radius: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  .card-header { text-align: center; }
+  .card-icon   { font-size: 40px; margin-bottom: 10px; }
+  .card-title  { font-size: 18px; font-weight: 700; color: #111827; margin-bottom: 4px; }
+  .card-sub    { font-size: 13px; color: #6b7280; }
+
+  .fields { display: flex; flex-direction: column; gap: 10px; }
+
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label {
+    font-size: 12px; font-weight: 600; color: #374151;
+    letter-spacing: .5px; text-transform: uppercase;
+  }
+  .field input {
+    padding: 11px 14px; border-radius: 8px; border: 1px solid #d1d5db;
+    background: #f9fafb; color: #111827; font-size: 14px;
+    outline: none; width: 100%; transition: border-color .2s;
+  }
+  .field input:focus  { border-color: #3b82f6; }
+
+  #login-error {
+    display: none; color: #dc2626; font-size: 13px; text-align: center;
+    background: #fef2f2; border: 1px solid #fecaca;
+    padding: 8px 12px; border-radius: 8px;
   }
 
-  #content h1 {
-    font-size: 24px;
-    font-weight: 700;
-    color: rgba(0,0,0,0.88);
-    letter-spacing: -.3px;
+  #login-btn {
+    padding: 13px; border-radius: 8px; border: none; cursor: pointer;
+    background: #1677ff; color: #fff; font-size: 15px; font-weight: 600;
+    transition: background .2s; width: 100%;
   }
+  #login-btn:hover:not(:disabled) { background: #0958d9; }
+  #login-btn:disabled { opacity: .7; cursor: default; }
 
-  #content p {
-    font-size: 14px;
-    color: rgba(0,0,0,0.45);
-    max-width: 400px;
-    line-height: 1.7;
+  /* Access denied overlay */
+  #deny-screen {
+    display: none; position: fixed; inset: 0; background: #f5f5f5;
+    align-items: center; justify-content: center; flex-direction: column;
+    gap: 20px; text-align: center; z-index: 9999;
   }
-
-  .stats {
-    display: flex;
-    gap: 32px;
-    padding: 20px 32px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    border: 1px solid rgba(0,0,0,0.06);
-  }
-
-  .stat { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-  .stat-val { font-size: 26px; font-weight: 700; color: #1677ff; }
-  .stat-lbl { font-size: 11px; color: rgba(0,0,0,0.45); text-transform: uppercase; letter-spacing: .5px; }
-
-  .hint {
-    font-size: 12px;
-    color: rgba(0,0,0,0.35);
-    background: #fff;
-    padding: 8px 18px;
-    border-radius: 20px;
-    border: 1px solid rgba(0,0,0,0.06);
+  #deny-screen h1  { font-size: 22px; font-weight: 700; color: #111827; }
+  #deny-screen p   { font-size: 14px; color: #6b7280; max-width: 320px; line-height: 1.6; }
+  #deny-screen btn-retry {
+    margin-top: 8px; padding: 11px 28px; border-radius: 8px;
+    border: 1px solid #d1d5db; background: #fff; color: #374151;
+    font-size: 14px; cursor: pointer;
   }
 </style>
 </head>
 <body>
 
-<!-- ══ App (underneath login overlay — revealed after unlock) ════════════ -->
-<div id="app" style="visibility:hidden; width:100%; height:100vh; flex:1; overflow:hidden; display:flex;">
+<div class="card">
+  <div class="card-header">
+    <div class="card-icon">📚</div>
+    <h1 class="card-title">Coding Interview Patterns</h1>
+    <p class="card-sub">Sign in to access your study material</p>
+  </div>
 
-<!-- ══ Sidebar ════════════════════════════════════════════ -->
-<aside id="sider">
-  <div class="sider-head">
-    <h2>Coding Interview Patterns</h2>
-    <div class="progress-row">
-      <div class="progress-track"><div class="progress-fill"></div></div>
-      <span class="progress-label">0 / 120 completed</span>
+  <div class="fields">
+    <div class="field">
+      <label>Username</label>
+      <input id="usr-input" type="text" placeholder="Enter username" autocomplete="username">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input id="pwd-input" type="password" placeholder="Enter password" autocomplete="current-password">
     </div>
   </div>
 
-  <div class="sider-menu">
+  <p id="login-error"></p>
 
-    <div class="chapter open">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">01</span>
-        <span class="ch-title">Two Pointers</span>
-        <span class="ch-count">7</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="two-pointers/introduction-to-two-pointers.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Two Pointers</a></div>
-        <div class="lesson-item"><a href="two-pointers/pair-sum-sorted.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Pair Sum - Sorted</a></div>
-        <div class="lesson-item"><a href="two-pointers/triplet-sum.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Triplet Sum</a></div>
-        <div class="lesson-item"><a href="two-pointers/is-palindrome-valid.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Is Palindrome Valid</a></div>
-        <div class="lesson-item"><a href="two-pointers/largest-container.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Largest Container</a></div>
-        <div class="lesson-item"><a href="two-pointers/shift-zeros-to-the-end.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Shift Zeros to the End</a></div>
-        <div class="lesson-item"><a href="two-pointers/next-lexicographical-sequence.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Next Lexicographical Sequence</a></div>
-      </div>
-    </div>
+  <button id="login-btn" onclick="submitLogin()">Sign In</button>
+</div>
 
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">02</span>
-        <span class="ch-title">Hash Maps and Sets</span>
-        <span class="ch-count">6</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="hash-maps-and-sets/introduction-to-hash-maps-and-sets.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Hash Maps and Sets</a></div>
-        <div class="lesson-item"><a href="hash-maps-and-sets/pair-sum-unsorted.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Pair Sum - Unsorted</a></div>
-        <div class="lesson-item"><a href="hash-maps-and-sets/verify-sudoku-board.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Verify Sudoku Board</a></div>
-        <div class="lesson-item"><a href="hash-maps-and-sets/zero-striping.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Zero Striping</a></div>
-        <div class="lesson-item"><a href="hash-maps-and-sets/longest-chain-of-consecutive-numbers.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Longest Chain of Consecutive Numbers</a></div>
-        <div class="lesson-item"><a href="hash-maps-and-sets/geometric-sequence-triplets.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Geometric Sequence Triplets</a></div>
-      </div>
-    </div>
-
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">03</span>
-        <span class="ch-title">Linked Lists</span>
-        <span class="ch-count">7</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="linked-lists/introduction-to-linked-lists.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Linked Lists</a></div>
-        <div class="lesson-item"><a href="linked-lists/linked-list-reversal.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Linked List Reversal</a></div>
-        <div class="lesson-item"><a href="linked-lists/remove-the-kth-last-node-from-a-linked-list.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Remove the Kth Last Node From a Linked List</a></div>
-        <div class="lesson-item"><a href="linked-lists/linked-list-intersection.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Linked List Intersection</a></div>
-        <div class="lesson-item"><a href="linked-lists/lru-cache.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>LRU Cache</a></div>
-        <div class="lesson-item"><a href="linked-lists/palindromic-linked-list.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Palindromic Linked List</a></div>
-        <div class="lesson-item"><a href="linked-lists/flatten-a-multi-level-linked-list.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Flatten a Multi-Level Linked List</a></div>
-      </div>
-    </div>
-
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">04</span>
-        <span class="ch-title">Fast and Slow Pointers</span>
-        <span class="ch-count">4</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="fast-and-slow-pointers/introduction-to-fast-and-slow-pointers.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Fast and Slow Pointers</a></div>
-        <div class="lesson-item"><a href="fast-and-slow-pointers/linked-list-loop.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Linked List Loop</a></div>
-        <div class="lesson-item"><a href="fast-and-slow-pointers/linked-list-midpoint.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Linked List Midpoint</a></div>
-        <div class="lesson-item"><a href="fast-and-slow-pointers/happy-number.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Happy Number</a></div>
-      </div>
-    </div>
-
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">05</span>
-        <span class="ch-title">Sliding Windows</span>
-        <span class="ch-count">4</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="sliding-windows/introduction-to-sliding-windows.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Sliding Windows</a></div>
-        <div class="lesson-item"><a href="sliding-windows/substring-anagrams.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Substring Anagrams</a></div>
-        <div class="lesson-item"><a href="sliding-windows/longest-substring-with-unique-characters.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Longest Substring With Unique Characters</a></div>
-        <div class="lesson-item"><a href="sliding-windows/longest-uniform-substring-after-replacements.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Longest Uniform Substring After Replacements</a></div>
-      </div>
-    </div>
-
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">06</span>
-        <span class="ch-title">Binary Search</span>
-        <span class="ch-count">9</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="binary-search/introduction-to-binary-search.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Binary Search</a></div>
-        <div class="lesson-item"><a href="binary-search/find-the-insertion-index.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Find the Insertion Index</a></div>
-        <div class="lesson-item"><a href="binary-search/first-and-last-occurrences-of-a-number.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>First and Last Occurrences of a Number</a></div>
-        <div class="lesson-item"><a href="binary-search/cutting-wood.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Cutting Wood</a></div>
-        <div class="lesson-item"><a href="binary-search/find-the-target-in-a-rotated-sorted-array.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Find the Target in a Rotated Sorted Array</a></div>
-        <div class="lesson-item"><a href="binary-search/find-the-median-from-two-sorted-arrays.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Find the Median From Two Sorted Arrays</a></div>
-        <div class="lesson-item"><a href="binary-search/matrix-search.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Matrix Search</a></div>
-        <div class="lesson-item"><a href="binary-search/local-maxima-in-array.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Local Maxima in Array</a></div>
-        <div class="lesson-item"><a href="binary-search/weighted-random-selection.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Weighted Random Selection</a></div>
-      </div>
-    </div>
-
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">07</span>
-        <span class="ch-title">Stacks</span>
-        <span class="ch-count">7</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="stacks/introduction-to-stacks.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Stacks</a></div>
-        <div class="lesson-item"><a href="stacks/valid-parenthesis-expression.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Valid Parenthesis Expression</a></div>
-        <div class="lesson-item"><a href="stacks/next-largest-number-to-the-right.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Next Largest Number to the Right</a></div>
-        <div class="lesson-item"><a href="stacks/evaluate-expression.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Evaluate Expression</a></div>
-        <div class="lesson-item"><a href="stacks/repeated-removal-of-adjacent-duplicates.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Repeated Removal of Adjacent Duplicates</a></div>
-        <div class="lesson-item"><a href="stacks/implement-a-queue-using-stacks.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Implement a Queue using Stacks</a></div>
-        <div class="lesson-item"><a href="stacks/maximums-of-sliding-window.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Maximums of Sliding Window</a></div>
-      </div>
-    </div>
-
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">08</span>
-        <span class="ch-title">Heaps</span>
-        <span class="ch-count">5</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="heaps/introduction-to-heaps.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Heaps</a></div>
-        <div class="lesson-item"><a href="heaps/k-most-frequent-strings.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>K Most Frequent Strings</a></div>
-        <div class="lesson-item"><a href="heaps/combine-sorted-linked-lists.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Combine Sorted Linked Lists</a></div>
-        <div class="lesson-item"><a href="heaps/median-of-an-integer-stream.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Median of an Integer Stream</a></div>
-        <div class="lesson-item"><a href="heaps/sort-a-k-sorted-array.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Sort a K-Sorted Array</a></div>
-      </div>
-    </div>
-
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">09</span>
-        <span class="ch-title">Intervals</span>
-        <span class="ch-count">4</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="intervals/introduction-to-intervals.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Intervals</a></div>
-        <div class="lesson-item"><a href="intervals/merge-overlapping-intervals.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Merge Overlapping Intervals</a></div>
-        <div class="lesson-item"><a href="intervals/identify-all-interval-overlaps.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Identify All Interval Overlaps</a></div>
-        <div class="lesson-item"><a href="intervals/largest-overlap-of-intervals.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Largest Overlap of Intervals</a></div>
-      </div>
-    </div>
-
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">10</span>
-        <span class="ch-title">Prefix Sums</span>
-        <span class="ch-count">4</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="prefix-sums/introduction-to-prefix-sums.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Prefix Sums</a></div>
-        <div class="lesson-item"><a href="prefix-sums/sum-between-range.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Sum Between Range</a></div>
-        <div class="lesson-item"><a href="prefix-sums/k-sum-subarrays.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>K-Sum Subarrays</a></div>
-        <div class="lesson-item"><a href="prefix-sums/product-array-without-current-element.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Product Array Without Current Element</a></div>
-      </div>
-    </div>
-
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">11</span>
-        <span class="ch-title">Trees</span>
-        <span class="ch-count">13</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="trees/introduction-to-trees.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Trees</a></div>
-        <div class="lesson-item"><a href="trees/invert-binary-tree.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Invert Binary Tree</a></div>
-        <div class="lesson-item"><a href="trees/balanced-binary-tree-validation.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Balanced Binary Tree Validation</a></div>
-        <div class="lesson-item"><a href="trees/rightmost-nodes-of-a-binary-tree.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Rightmost Nodes of a Binary Tree</a></div>
-        <div class="lesson-item"><a href="trees/widest-binary-tree-level.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Widest Binary Tree Level</a></div>
-        <div class="lesson-item"><a href="trees/binary-search-tree-validation.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Binary Search Tree Validation</a></div>
-        <div class="lesson-item"><a href="trees/lowest-common-ancestor.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Lowest Common Ancestor</a></div>
-        <div class="lesson-item"><a href="trees/build-binary-tree-from-preorder-and-inorder-traversals.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Build Binary Tree From Preorder and Inorder Traversals</a></div>
-        <div class="lesson-item"><a href="trees/maximum-sum-of-a-continuous-path-in-a-binary-tree.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Maximum Sum of a Continuous Path in a Binary Tree</a></div>
-        <div class="lesson-item"><a href="trees/binary-tree-symmetry.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Binary Tree Symmetry</a></div>
-        <div class="lesson-item"><a href="trees/binary-tree-columns.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Binary Tree Columns</a></div>
-        <div class="lesson-item"><a href="trees/kth-smallest-number-in-a-binary-search-tree.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Kth Smallest Number in a Binary Search Tree</a></div>
-        <div class="lesson-item"><a href="trees/serialize-and-deserialize-a-binary-tree.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Serialize and Deserialize a Binary Tree</a></div>
-      </div>
-    </div>
-
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">12</span>
-        <span class="ch-title">Tries</span>
-        <span class="ch-count">4</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="tries/introduction-to-tries.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Tries</a></div>
-        <div class="lesson-item"><a href="tries/design-a-trie.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Design a Trie</a></div>
-        <div class="lesson-item"><a href="tries/insert-and-search-words-with-wildcards.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Insert and Search Words with Wildcards</a></div>
-        <div class="lesson-item"><a href="tries/find-all-words-on-a-board.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Find All Words on a Board</a></div>
-      </div>
-    </div>
-
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">13</span>
-        <span class="ch-title">Graphs</span>
-        <span class="ch-count">11</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="graphs/introduction-to-graphs.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Graphs</a></div>
-        <div class="lesson-item"><a href="graphs/graph-deep-copy.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Graph Deep Copy</a></div>
-        <div class="lesson-item"><a href="graphs/count-islands.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Count Islands</a></div>
-        <div class="lesson-item"><a href="graphs/matrix-infection.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Matrix Infection</a></div>
-        <div class="lesson-item"><a href="graphs/bipartite-graph-validation.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Bipartite Graph Validation</a></div>
-        <div class="lesson-item"><a href="graphs/longest-increasing-path.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Longest Increasing Path</a></div>
-        <div class="lesson-item"><a href="graphs/shortest-transformation-sequence.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Shortest Transformation Sequence</a></div>
-        <div class="lesson-item"><a href="graphs/merging-communities.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Merging Communities</a></div>
-        <div class="lesson-item"><a href="graphs/prerequisites.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Prerequisites</a></div>
-        <div class="lesson-item"><a href="graphs/shortest-path.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Shortest Path</a></div>
-        <div class="lesson-item"><a href="graphs/connect-the-dots.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Connect the Dots</a></div>
-      </div>
-    </div>
-
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">14</span>
-        <span class="ch-title">Backtracking</span>
-        <span class="ch-count">6</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="backtracking/introduction-to-backtracking.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Backtracking</a></div>
-        <div class="lesson-item"><a href="backtracking/find-all-permutations.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Find All Permutations</a></div>
-        <div class="lesson-item"><a href="backtracking/find-all-subsets.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Find All Subsets</a></div>
-        <div class="lesson-item"><a href="backtracking/n-queens.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>N Queens</a></div>
-        <div class="lesson-item"><a href="backtracking/combinations-of-a-sum.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Combinations of a Sum</a></div>
-        <div class="lesson-item"><a href="backtracking/phone-keypad-combinations.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Phone Keypad Combinations</a></div>
-      </div>
-    </div>
-
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">15</span>
-        <span class="ch-title">Dynamic Programming</span>
-        <span class="ch-count">10</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="dynamic-programming/introduction-to-dynamic-programming.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Dynamic Programming</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/climbing-stairs.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Climbing Stairs</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/minimum-coin-combination.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Minimum Coin Combination</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/matrix-pathways.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Matrix Pathways</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/neighborhood-burglary.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Neighborhood Burglary</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/longest-common-subsequence.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Longest Common Subsequence</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/longest-palindrome-in-a-string.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Longest Palindrome in a String</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/maximum-subarray-sum.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Maximum Subarray Sum</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/0-1-knapsack.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>0/1 Knapsack</a></div>
-        <div class="lesson-item"><a href="dynamic-programming/largest-square-in-a-matrix.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Largest Square in a Matrix</a></div>
-      </div>
-    </div>
-
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">16</span>
-        <span class="ch-title">Greedy</span>
-        <span class="ch-count">4</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="greedy/introduction-to-greedy-algorithms.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Greedy Algorithms</a></div>
-        <div class="lesson-item"><a href="greedy/jump-to-the-end.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Jump to the End</a></div>
-        <div class="lesson-item"><a href="greedy/gas-stations.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Gas Stations</a></div>
-        <div class="lesson-item"><a href="greedy/candies.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Candies</a></div>
-      </div>
-    </div>
-
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">17</span>
-        <span class="ch-title">Sort and Search</span>
-        <span class="ch-count">5</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="sort-and-search/introduction-to-sort-and-search.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Sort and Search</a></div>
-        <div class="lesson-item"><a href="sort-and-search/sort-linked-list.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Sort Linked List</a></div>
-        <div class="lesson-item"><a href="sort-and-search/sort-array.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Sort Array</a></div>
-        <div class="lesson-item"><a href="sort-and-search/kth-largest-integer.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Kth Largest Integer</a></div>
-        <div class="lesson-item"><a href="sort-and-search/dutch-national-flag.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Dutch National Flag</a></div>
-      </div>
-    </div>
-
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">18</span>
-        <span class="ch-title">Bit Manipulation</span>
-        <span class="ch-count">4</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="bit-manipulation/introduction-to-bit-manipulation.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Bit Manipulation</a></div>
-        <div class="lesson-item"><a href="bit-manipulation/hamming-weights-of-integers.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Hamming Weights of Integers</a></div>
-        <div class="lesson-item"><a href="bit-manipulation/lonely-integer.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Lonely Integer</a></div>
-        <div class="lesson-item"><a href="bit-manipulation/swap-odd-and-even-bits.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Swap Odd and Even Bits</a></div>
-      </div>
-    </div>
-
-    <div class="chapter">
-      <div class="chapter-header" onclick="toggle(this)">
-        <span class="ch-num">19</span>
-        <span class="ch-title">Math and Geometry</span>
-        <span class="ch-count">6</span>
-        <span class="ch-arrow">▶</span>
-      </div>
-      <div class="lesson-list">
-        <div class="lesson-item"><a href="math-and-geometry/introduction-to-math-and-geometry.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Introduction to Math and Geometry</a></div>
-        <div class="lesson-item"><a href="math-and-geometry/spiral-traversal.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Spiral Traversal</a></div>
-        <div class="lesson-item"><a href="math-and-geometry/reverse-32-bit-integer.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Reverse 32-Bit Integer</a></div>
-        <div class="lesson-item"><a href="math-and-geometry/maximum-collinear-points.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Maximum Collinear Points</a></div>
-        <div class="lesson-item"><a href="math-and-geometry/the-josephus-problem.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>The Josephus Problem</a></div>
-        <div class="lesson-item"><a href="math-and-geometry/triangle-numbers.html" onclick="loadLesson(event,this)"><span class="lesson-dot"></span>Triangle Numbers</a></div>
-      </div>
-    </div>
-
-  </div><!-- /sider-menu -->
-</aside>
-
-<!-- ══ Content ════════════════════════════════════════════ -->
-<main id="content">
-  <!-- Welcome placeholder — hidden once a lesson loads -->
-  <div id="welcome-screen">
-    <div class="logo-box">📖</div>
-    <h1>Coding Interview Patterns</h1>
-    <p>Select a lesson from the sidebar to begin.</p>
-    <div class="stats">
-      <div class="stat"><span class="stat-val">19</span><span class="stat-lbl">Chapters</span></div>
-      <div class="stat"><span class="stat-val">120</span><span class="stat-lbl">Lessons</span></div>
-      <div class="stat"><span class="stat-val">Java</span><span class="stat-lbl">Language</span></div>
-    </div>
-    <span class="hint">Saved offline · Java code pre-selected · All 120 lessons available</span>
+<div id="deny-screen">
+  <div style="font-size:64px">🚫</div>
+  <div>
+    <h1>Access Denied</h1>
+    <p>Too many failed attempts.<br>Please contact the site owner for access.</p>
   </div>
-  <!-- Lesson iframe — shown once a lesson is selected -->
-  <iframe id="lesson-frame" title="Lesson" style="display:none;border:none;width:100%;height:100%;flex:1;"></iframe>
-</main>
-
-</div><!-- /app — closed here so login/deny screens are outside app -->
+  <button onclick="retryLogin()" style="margin-top:8px;padding:11px 28px;border-radius:8px;border:1px solid #d1d5db;background:#fff;color:#374151;font-size:14px;cursor:pointer;">Try Again</button>
+</div>
 
 <script>
-  // ── Credentials (SHA-256 hashed) ─────────────────────────────────────────
   const VALID_USER = "e3c168e0a717c83cc4b0a48148793c8da9c15b6cd875052ff59ff9a12f08b825"; // Bubba143
   const VALID_PASS = "8a4e8d0043cc9d3da8081d96d920dc1e278b326c99bf51d0b427d7ebbd883c79"; // Ad@#2026
   const SESSION_KEY = "bbg_auth_v2";
+  const FIRST_LESSON = "two-pointers/introduction-to-two-pointers.html";
   let failCount = 0;
+
+  // If already logged in, go straight to first lesson
+  if (sessionStorage.getItem(SESSION_KEY) === "ok") {
+    window.location.replace(FIRST_LESSON);
+  }
 
   async function sha256(str) {
     const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
-  }
-
-  function show(id) {
-    ["login-screen", "deny-screen"].forEach(s => {
-      const el = document.getElementById(s);
-      if (el) el.style.display = "none";
-    });
-    // App is always in the DOM — just hide/show the overlay screens
-    const target = document.getElementById(id);
-    if (target && id !== "app") target.style.display = "flex";
-    // Show app by removing the overlay (app is visible by default underneath)
-    document.getElementById("app").style.visibility =
-      id === "app" ? "visible" : "hidden";
-  }
-
-  async function checkSession() {
-    if (sessionStorage.getItem(SESSION_KEY) === "ok") {
-      show("app"); return;
-    }
-    // Login screen is visible by default (no JS needed)
-    setTimeout(() => {
-      const u = document.getElementById("usr-input");
-      if (u) u.focus();
-    }, 100);
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,"0")).join("");
   }
 
   async function submitLogin() {
     const usr = document.getElementById("usr-input").value.trim();
     const pwd = document.getElementById("pwd-input").value;
     const btn = document.getElementById("login-btn");
+    if (!usr || !pwd) { setError("Please enter both username and password."); return; }
 
-    if (!usr || !pwd) {
-      setError("Please enter both username and password.");
-      return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = "Verifying...";
-
+    btn.disabled = true; btn.textContent = "Verifying…";
     const [uHash, pHash] = await Promise.all([sha256(usr), sha256(pwd)]);
 
     if (uHash === VALID_USER && pHash === VALID_PASS) {
       sessionStorage.setItem(SESSION_KEY, "ok");
-      show("app");
+      window.location.replace(FIRST_LESSON);
     } else {
       failCount++;
       document.getElementById("pwd-input").value = "";
       if (failCount >= 3) {
-        // After 3 wrong attempts show the access denied page
-        show("deny-screen");
+        document.getElementById("deny-screen").style.display = "flex";
       } else {
-        setError(`Invalid username or password. (${3 - failCount} attempt${3 - failCount === 1 ? "" : "s"} left)`);
-        btn.disabled = false;
-        btn.textContent = "Sign In";
+        setError(`Invalid username or password. (${3 - failCount} attempt${3-failCount===1?"":"s"} left)`);
+        btn.disabled = false; btn.textContent = "Sign In";
         document.getElementById(uHash === VALID_USER ? "pwd-input" : "usr-input").focus();
       }
     }
@@ -715,8 +157,7 @@
 
   function setError(msg) {
     const el = document.getElementById("login-error");
-    el.textContent = msg;
-    el.style.display = "block";
+    el.textContent = msg; el.style.display = "block";
     document.getElementById("login-btn").disabled = false;
     document.getElementById("login-btn").textContent = "Sign In";
   }
@@ -726,143 +167,18 @@
     document.getElementById("usr-input").value = "";
     document.getElementById("pwd-input").value = "";
     document.getElementById("login-error").style.display = "none";
-    show("login-screen");
-    setTimeout(() => document.getElementById("usr-input").focus(), 100);
+    document.getElementById("deny-screen").style.display = "none";
+    document.getElementById("usr-input").focus();
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    ["usr-input", "pwd-input"].forEach(id => {
+    ["usr-input","pwd-input"].forEach(id => {
       document.getElementById(id).addEventListener("keydown", e => {
         if (e.key === "Enter") submitLogin();
       });
     });
-    checkSession();
+    document.getElementById("usr-input").focus();
   });
-
-  const LESSONS = ["two-pointers/introduction-to-two-pointers.html", "two-pointers/pair-sum-sorted.html", "two-pointers/triplet-sum.html", "two-pointers/is-palindrome-valid.html", "two-pointers/largest-container.html", "two-pointers/shift-zeros-to-the-end.html", "two-pointers/next-lexicographical-sequence.html", "hash-maps-and-sets/introduction-to-hash-maps-and-sets.html", "hash-maps-and-sets/pair-sum-unsorted.html", "hash-maps-and-sets/verify-sudoku-board.html", "hash-maps-and-sets/zero-striping.html", "hash-maps-and-sets/longest-chain-of-consecutive-numbers.html", "hash-maps-and-sets/geometric-sequence-triplets.html", "linked-lists/introduction-to-linked-lists.html", "linked-lists/linked-list-reversal.html", "linked-lists/remove-the-kth-last-node-from-a-linked-list.html", "linked-lists/linked-list-intersection.html", "linked-lists/lru-cache.html", "linked-lists/palindromic-linked-list.html", "linked-lists/flatten-a-multi-level-linked-list.html", "fast-and-slow-pointers/introduction-to-fast-and-slow-pointers.html", "fast-and-slow-pointers/linked-list-loop.html", "fast-and-slow-pointers/linked-list-midpoint.html", "fast-and-slow-pointers/happy-number.html", "sliding-windows/introduction-to-sliding-windows.html", "sliding-windows/substring-anagrams.html", "sliding-windows/longest-substring-with-unique-characters.html", "sliding-windows/longest-uniform-substring-after-replacements.html", "binary-search/introduction-to-binary-search.html", "binary-search/find-the-insertion-index.html", "binary-search/first-and-last-occurrences-of-a-number.html", "binary-search/cutting-wood.html", "binary-search/find-the-target-in-a-rotated-sorted-array.html", "binary-search/find-the-median-from-two-sorted-arrays.html", "binary-search/matrix-search.html", "binary-search/local-maxima-in-array.html", "binary-search/weighted-random-selection.html", "stacks/introduction-to-stacks.html", "stacks/valid-parenthesis-expression.html", "stacks/next-largest-number-to-the-right.html", "stacks/evaluate-expression.html", "stacks/repeated-removal-of-adjacent-duplicates.html", "stacks/implement-a-queue-using-stacks.html", "stacks/maximums-of-sliding-window.html", "heaps/introduction-to-heaps.html", "heaps/k-most-frequent-strings.html", "heaps/combine-sorted-linked-lists.html", "heaps/median-of-an-integer-stream.html", "heaps/sort-a-k-sorted-array.html", "intervals/introduction-to-intervals.html", "intervals/merge-overlapping-intervals.html", "intervals/identify-all-interval-overlaps.html", "intervals/largest-overlap-of-intervals.html", "prefix-sums/introduction-to-prefix-sums.html", "prefix-sums/sum-between-range.html", "prefix-sums/k-sum-subarrays.html", "prefix-sums/product-array-without-current-element.html", "trees/introduction-to-trees.html", "trees/invert-binary-tree.html", "trees/balanced-binary-tree-validation.html", "trees/rightmost-nodes-of-a-binary-tree.html", "trees/widest-binary-tree-level.html", "trees/binary-search-tree-validation.html", "trees/lowest-common-ancestor.html", "trees/build-binary-tree-from-preorder-and-inorder-traversals.html", "trees/maximum-sum-of-a-continuous-path-in-a-binary-tree.html", "trees/binary-tree-symmetry.html", "trees/binary-tree-columns.html", "trees/kth-smallest-number-in-a-binary-search-tree.html", "trees/serialize-and-deserialize-a-binary-tree.html", "tries/introduction-to-tries.html", "tries/design-a-trie.html", "tries/insert-and-search-words-with-wildcards.html", "tries/find-all-words-on-a-board.html", "graphs/introduction-to-graphs.html", "graphs/graph-deep-copy.html", "graphs/count-islands.html", "graphs/matrix-infection.html", "graphs/bipartite-graph-validation.html", "graphs/longest-increasing-path.html", "graphs/shortest-transformation-sequence.html", "graphs/merging-communities.html", "graphs/prerequisites.html", "graphs/shortest-path.html", "graphs/connect-the-dots.html", "backtracking/introduction-to-backtracking.html", "backtracking/find-all-permutations.html", "backtracking/find-all-subsets.html", "backtracking/n-queens.html", "backtracking/combinations-of-a-sum.html", "backtracking/phone-keypad-combinations.html", "dynamic-programming/introduction-to-dynamic-programming.html", "dynamic-programming/climbing-stairs.html", "dynamic-programming/minimum-coin-combination.html", "dynamic-programming/matrix-pathways.html", "dynamic-programming/neighborhood-burglary.html", "dynamic-programming/longest-common-subsequence.html", "dynamic-programming/longest-palindrome-in-a-string.html", "dynamic-programming/maximum-subarray-sum.html", "dynamic-programming/0-1-knapsack.html", "dynamic-programming/largest-square-in-a-matrix.html", "greedy/introduction-to-greedy-algorithms.html", "greedy/jump-to-the-end.html", "greedy/gas-stations.html", "greedy/candies.html", "sort-and-search/introduction-to-sort-and-search.html", "sort-and-search/sort-linked-list.html", "sort-and-search/sort-array.html", "sort-and-search/kth-largest-integer.html", "sort-and-search/dutch-national-flag.html", "bit-manipulation/introduction-to-bit-manipulation.html", "bit-manipulation/hamming-weights-of-integers.html", "bit-manipulation/lonely-integer.html", "bit-manipulation/swap-odd-and-even-bits.html", "math-and-geometry/introduction-to-math-and-geometry.html", "math-and-geometry/spiral-traversal.html", "math-and-geometry/reverse-32-bit-integer.html", "math-and-geometry/maximum-collinear-points.html", "math-and-geometry/the-josephus-problem.html", "math-and-geometry/triangle-numbers.html"];
-
-  function toggle(header) {
-    header.closest('.chapter').classList.toggle('open');
-  }
-
-  function loadLesson(e, link) {
-    e.preventDefault();
-    const url = link.getAttribute('href');
-
-    // Mark active in sidebar
-    document.querySelectorAll('.lesson-item a').forEach(a => a.classList.remove('active'));
-    link.classList.add('active');
-
-    // Ensure chapter is expanded
-    const ch = link.closest('.chapter');
-    if (ch && !ch.classList.contains('open')) ch.classList.add('open');
-
-    // Scroll sidebar so active item is visible
-    link.scrollIntoView({ block: 'nearest' });
-
-    // Show iframe, hide welcome
-    document.getElementById('welcome-screen').style.display = 'none';
-    const frame = document.getElementById('lesson-frame');
-    frame.style.display = 'block';
-    frame.src = url;
-  }
 </script>
-
-<!-- ══ Login Screen (visible by default — no JS needed) ═════════════════════ -->
-<div id="login-screen" style="
-  display:flex; position:fixed; inset:0; z-index:9999;
-  background:#f5f5f5;
-  align-items:center; justify-content:center;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-">
-  <div style="
-    background:#ffffff; border:1px solid #e5e7eb; border-radius:16px;
-    padding:40px 36px; width:360px; display:flex; flex-direction:column; gap:20px;
-    box-shadow:0 8px 32px rgba(0,0,0,0.10);
-  ">
-    <!-- Header -->
-    <div style="text-align:center;">
-      <div style="font-size:40px; margin-bottom:10px;">📚</div>
-      <h1 style="font-size:18px; font-weight:700; color:#111827; margin-bottom:4px;">
-        Coding Interview Patterns
-      </h1>
-      <p style="font-size:13px; color:#6b7280;">Sign in to access your study material</p>
-    </div>
-
-    <!-- Fields -->
-    <div style="display:flex; flex-direction:column; gap:10px;">
-      <div style="display:flex; flex-direction:column; gap:5px;">
-        <label style="font-size:12px; font-weight:600; color:#374151; letter-spacing:.5px; text-transform:uppercase;">
-          Username
-        </label>
-        <input id="usr-input" type="text" placeholder="Enter username" autocomplete="username"
-          style="
-            padding:11px 14px; border-radius:8px; border:1px solid #d1d5db;
-            background:#f9fafb; color:#111827; font-size:14px; outline:none; width:100%;
-            transition:border-color .2s;
-          "
-          onfocus="this.style.borderColor='#3b82f6'"
-          onblur="this.style.borderColor='#d1d5db'"
-        />
-      </div>
-      <div style="display:flex; flex-direction:column; gap:5px;">
-        <label style="font-size:12px; font-weight:600; color:#374151; letter-spacing:.5px; text-transform:uppercase;">
-          Password
-        </label>
-        <input id="pwd-input" type="password" placeholder="Enter password" autocomplete="current-password"
-          style="
-            padding:11px 14px; border-radius:8px; border:1px solid #d1d5db;
-            background:#f9fafb; color:#111827; font-size:14px; outline:none; width:100%;
-            transition:border-color .2s;
-          "
-          onfocus="this.style.borderColor='#3b82f6'"
-          onblur="this.style.borderColor='#d1d5db'"
-        />
-      </div>
-    </div>
-
-    <!-- Error -->
-    <p id="login-error" style="
-      display:none; color:#dc2626; font-size:13px; text-align:center;
-      background:#fef2f2; border:1px solid #fecaca;
-      padding:8px 12px; border-radius:8px; margin:0;
-    "></p>
-
-    <!-- Button -->
-    <button id="login-btn" onclick="submitLogin()" style="
-      padding:13px; border-radius:8px; border:none; cursor:pointer;
-      background:#1677ff; color:#fff; font-size:15px; font-weight:600;
-      transition:background .2s; width:100%;
-    "
-      onmouseover="if(!this.disabled) this.style.background='#0958d9'"
-      onmouseout="if(!this.disabled) this.style.background='#1677ff'"
-    >Sign In</button>
-  </div>
-</div>
-
-<!-- ══ Access Denied Screen ══════════════════════════════════════════════════ -->
-<div id="deny-screen" style="
-  display:none; position:fixed; inset:0; z-index:9999;
-  background:#f5f5f5;
-  align-items:center; justify-content:center; flex-direction:column; gap:20px;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  text-align:center;
-">
-  <div style="font-size:64px;">🚫</div>
-  <div>
-    <h1 style="font-size:22px; font-weight:700; color:#111827; margin-bottom:8px;">
-      Access Denied
-    </h1>
-    <p style="font-size:14px; color:#6b7280; max-width:320px; line-height:1.6;">
-      Too many failed attempts.<br>
-      Please contact the site owner for access.
-    </p>
-  </div>
-  <button onclick="retryLogin()" style="
-    margin-top:8px; padding:11px 28px; border-radius:8px; border:1px solid #d1d5db;
-    background:#fff; color:#374151; font-size:14px; cursor:pointer;
-  ">Try Again</button>
-</div>
-
 </body>
 </html>
