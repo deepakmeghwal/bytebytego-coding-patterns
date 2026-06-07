@@ -248,7 +248,7 @@
     transition: color .15s, background .15s;
   }
   .bbg-lesson-list a:hover { color: #fff; background: rgba(255,255,255,0.06); }
-  .bbg-lesson-list a.active { color: #fff; background: #1677ff; }
+  .bbg-lesson-list a.active { color: #fff; background: rgba(255,255,255,0.12); }
 
   .bbg-dot {
     width: 6px; height: 6px; border-radius: 50%;

@@ -1,0 +1,417 @@
+/*
+ * layout.css — Fallback layout for offline ByteByteGo study site.
+ * Replaces missing bytebytego.com/_next/static/chunks/*.css that returned 404.
+ */
+
+/* ── CSS Variables ─────────────────────────────────────────────────────────── */
+:root {
+  --bytebytego-header-height: 64px;
+  --course-coding-patterns-sider-width: 260px;
+}
+
+/* ── Reset basics ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0; height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  color: #111827;
+  background: #fff;
+}
+
+/* ── Root layout ───────────────────────────────────────────────────────────── */
+#__next { display: flex; flex-direction: column; height: 100vh; }
+.ant-layout { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+
+/* ── Header ────────────────────────────────────────────────────────────────── */
+.ant-layout-header {
+  position: fixed !important;
+  top: 0; left: 0; right: 0;
+  height: var(--bytebytego-header-height);
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex !important;
+  align-items: center;
+  padding: 0 24px;
+  z-index: 1000;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+
+/* ── Logo ──────────────────────────────────────────────────────────────────── */
+.style-module-scss-module__nG5F8W__headerLogoLink {
+  position: relative !important;
+  display: inline-block !important;
+  width: 160px !important;
+  height: 40px !important;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.style-module-scss-module__nG5F8W__headerLogoImage {
+  /* keep position:absolute but constrain it to the logo container */
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* ── Header right (My Courses + avatar) ────────────────────────────────────── */
+.style-module-scss-module__nG5F8W__headerRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+.style-module-scss-module__nG5F8W__navLinkSlot a {
+  color: #374151;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+.style-module-scss-module__nG5F8W__navLinkSlot a:hover { color: #1677ff; }
+.style-module-scss-module__nG5F8W__profileIconWrap { cursor: pointer; }
+
+/* ── Main content area (below fixed header) ────────────────────────────────── */
+.ant-layout-content {
+  margin-top: var(--bytebytego-header-height) !important;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Lesson container ──────────────────────────────────────────────────────── */
+.style-module-scss-module__nbagBW__container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+}
+
+/* Hide the hamburger menu toggle (our sidebar is always visible) */
+.style-module-scss-module__nbagBW__menuToggle { display: none; }
+
+/* ── Sidebar + content split ───────────────────────────────────────────────── */
+.ant-layout.ant-layout-has-sider {
+  flex-direction: row !important;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  height: calc(100vh - var(--bytebytego-header-height));
+}
+
+/* ── Sidebar ───────────────────────────────────────────────────────────────── */
+.ant-layout-sider {
+  width: var(--course-coding-patterns-sider-width) !important;
+  min-width: var(--course-coding-patterns-sider-width) !important;
+  max-width: var(--course-coding-patterns-sider-width) !important;
+  flex: 0 0 var(--course-coding-patterns-sider-width) !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+  background: #3e3e3e;
+  color: rgba(255,255,255,0.9);
+}
+.ant-layout-sider-children { height: 100%; display: flex; flex-direction: column; }
+
+/* ── Content layout ────────────────────────────────────────────────────────── */
+.style-module-scss-module__nbagBW__contentLayout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+.style-module-scss-module__nbagBW__content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px 40px;
+}
+
+/* ── Article ───────────────────────────────────────────────────────────────── */
+.style-module-scss-module__nbagBW__articleWrap {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.style-module-scss-module__nbagBW__learnContent h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #111827;
+}
+.style-module-scss-module__nbagBW__learnContent h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 32px 0 12px;
+  color: #111827;
+}
+.style-module-scss-module__nbagBW__learnContent h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 24px 0 8px;
+}
+.style-module-scss-module__nbagBW__learnContent p { line-height: 1.75; margin: 12px 0; color: #374151; }
+.style-module-scss-module__nbagBW__learnContent ul,
+.style-module-scss-module__nbagBW__learnContent ol { padding-left: 24px; margin: 12px 0; line-height: 1.75; color: #374151; }
+.style-module-scss-module__nbagBW__learnContent li { margin: 6px 0; }
+.style-module-scss-module__nbagBW__learnContent code {
+  background: #f3f4f6;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 13px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  color: #e83e8c;
+}
+.style-module-scss-module__nbagBW__learnContent pre {
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  padding: 16px 18px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+.style-module-scss-module__nbagBW__learnContent pre code {
+  background: none;
+  color: #24292e;
+  padding: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.style-module-scss-module__nbagBW__learnContent figure {
+  margin: 20px 0;
+  text-align: center;
+}
+.style-module-scss-module__nbagBW__learnContent img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+.style-module-scss-module__nbagBW__learnContent strong { font-weight: 600; }
+.style-module-scss-module__nbagBW__learnContent a { color: #1677ff; text-decoration: none; }
+.style-module-scss-module__nbagBW__learnContent a:hover { text-decoration: underline; }
+
+/* ── Mark Complete button ──────────────────────────────────────────────────── */
+.style-module-scss-module__nbagBW__markCompleteWrap {
+  padding: 24px 40px;
+  border-top: 1px solid #e5e7eb;
+  background: #fff;
+}
+.style-module-scss-module__nbagBW__markComplete {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: #1677ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.style-module-scss-module__nbagBW__markComplete:hover { background: #0958d9; }
+
+/* ── Ant Design button base ────────────────────────────────────────────────── */
+.ant-btn { cursor: pointer; border-radius: 6px; font-size: 14px; }
+
+/* ── Code tab wrapper — outer container ─────────────────────────────────────── */
+[class*="codeTabsWrap"] {
+  margin: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  overflow: hidden;
+}
+
+/* ── Ant Design tabs — shared base ─────────────────────────────────────────── */
+.ant-tabs-nav {
+  display: flex;
+  flex: none;
+  align-items: flex-end;   /* tabs sit on the bottom edge of the nav bar */
+  position: relative;
+  margin-bottom: 0;
+}
+.ant-tabs-nav-wrap { position: relative; display: flex; flex: auto; align-self: stretch; overflow: hidden; white-space: nowrap; }
+.ant-tabs-nav-list { position: relative; display: flex; flex-direction: row; }
+.ant-tabs-tab-btn { outline: none; }
+.ant-tabs-content-holder { flex: auto; min-width: 0; min-height: 0; }
+.ant-tabs-content { display: flex; width: 100%; }
+.ant-tabs-tabpane { flex: none; width: 100%; outline: none; }
+.ant-tabs-tabpane-hidden { display: none !important; }
+
+/* ── Card-style tabs (ant-tabs-card) — light green bar, clear active state ───── */
+.ant-tabs-card .ant-tabs-nav {
+  background: #d2f8ed;          /* very light #35ddac tint for the bar */
+  border-bottom: 2px solid #35ddac;
+  padding: 8px 10px 0;
+  gap: 3px;
+}
+.ant-tabs-card .ant-tabs-nav-list {
+  gap: 4px;
+}
+.ant-tabs-card .ant-tabs-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  background: #a8f0d9;          /* medium #35ddac tint for inactive tabs */
+  border: 1px solid #35ddac;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  color: #0a5c43;               /* dark teal text, readable on green */
+  margin: 0;
+  transition: background .15s, color .15s;
+  position: relative;
+  bottom: -2px;
+}
+.ant-tabs-card .ant-tabs-tab:hover {
+  background: #7de8c8;
+  color: #073d2c;
+}
+.ant-tabs-card .ant-tabs-tab-active {
+  background: #ffffff;           /* white — pops clearly out of the green bar */
+  border-color: #35ddac;
+  border-bottom-color: #ffffff;  /* merges into white code area below */
+  color: #0a5c43;
+  font-weight: 700;
+  z-index: 1;
+  box-shadow: 0 -3px 0 #35ddac inset;  /* #35ddac accent stripe on top of active tab */
+}
+.ant-tabs-card .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #0a5c43;
+}
+
+/* Code content area — white box below the tabs */
+.ant-tabs-card .ant-tabs-content-holder {
+  background: #ffffff;
+  border: 1px solid #d0d7de;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+}
+.ant-tabs-card .ant-tabs-content { display: flex; width: 100%; }
+
+/* Code blocks inside card tabs — no extra border, just padding */
+.ant-tabs-card .hljs {
+  background: #f6f8fa;
+  border: none;
+  border-top: 1px solid #e6e8eb;
+  border-radius: 0 0 8px 8px;
+  padding: 1.1em 1.4em;
+}
+.ant-tabs-card pre {
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Hide ink bar in card mode (we use border tricks instead) */
+.ant-tabs-ink-bar { display: none !important; }
+.ant-tabs-nav-operations { display: none; }
+
+/* ── Copy button ─────────────────────────────────────────────────────────────── */
+[class*="copyBtn"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  float: right;
+  margin: 8px 10px 0 0;
+  padding: 4px 8px;
+  background: #f6f8fa;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity .15s;
+}
+[class*="copyBtn"]:hover { opacity: 1; background: #e8eaed; }
+
+/* ── Highlight.js — GitHub Light theme ───────────────────────────────────────
+   Matches the official ByteByteGo site's light code block appearance.
+   The HTML has pre-baked hljs-* spans; this CSS maps them to colors.
+   ─────────────────────────────────────────────────────────────────────────── */
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1.1em 1.3em;
+  background: #f6f8fa;
+  color: #24292e;
+  border-radius: 0 0 8px 8px;   /* tabs sit above, so only round bottom corners */
+  border: 1px solid #e1e4e8;
+  border-top: none;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+/* Override generic pre/code — only for standalone pre blocks (not inside card tabs) */
+.style-module-scss-module__nbagBW__learnContent > pre,
+.style-module-scss-module__nbagBW__learnContent article pre:not(.ant-tabs-card pre) {
+  background: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 8px;
+  border: 1px solid #d0d7de;
+  overflow: hidden;
+}
+.style-module-scss-module__nbagBW__learnContent pre code.hljs {
+  border: none;
+  border-radius: 8px;
+}
+
+/* GitHub Light token colours */
+.hljs-comment,
+.hljs-quote              { color: #6a737d; font-style: italic; }
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst              { color: #d73a49; font-weight: 600; }
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr     { color: #005cc5; }
+
+.hljs-string,
+.hljs-doctag,
+.hljs-regexp             { color: #032f62; }
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id        { color: #6f42c1; font-weight: 600; }
+
+/* hljs v11 new-style compound classes */
+.hljs-title.function_    { color: #6f42c1; font-weight: 600; }
+.hljs-title.class_       { color: #6f42c1; font-weight: 600; }
+
+.hljs-type,
+.hljs-class .hljs-title  { color: #005cc5; }
+
+.hljs-built_in           { color: #005cc5; }
+
+.hljs-params             { color: #24292e; }
+.hljs-property           { color: #005cc5; }
+.hljs-operator           { color: #d73a49; }
+.hljs-punctuation        { color: #24292e; }
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute          { color: #22863a; }
+
+.hljs-attr               { color: #6f42c1; }
+.hljs-meta               { color: #999; }
+.hljs-emphasis           { font-style: italic; }
+.hljs-strong             { font-weight: bold; }
+.hljs-link               { text-decoration: underline; color: #032f62; }
+.hljs-deletion           { color: #b31d28; background: #ffeef0; }
+.hljs-addition           { color: #22863a; background: #f0fff4; }
+
+/* ── Hide footer and chat button (not needed offline) ──────────────────────── */
+footer { display: none !important; }
+.style-module-scss-module__S8tdTq__chatButtonContainer { display: none !important; }
+
+/* Hide second (duplicate) header injected by Next.js in the aside layout */
+.style-module-scss-module__nbagBW__contentLayout .ant-layout-header { display: none !important; }
